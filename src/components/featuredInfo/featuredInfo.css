@@ -1,0 +1,24 @@
+.featured {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+    margin-bottom: 30px;
+}
+
+.featuredItem {
+    flex: 1;
+    margin: 0px 20px;
+    padding: 30px;
+    border-radius: 10px;
+    cursor: pointer;
+    height: 250px;
+    -webkit-box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.5); 
+    box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.5);
+
+}
+
+.featuredTitle {
+    font-size: 20px;
+    font-weight: 600;
+}
