@@ -4,6 +4,7 @@ import './featuredInfo.css'
 import {ArrowDownward, ArrowUpward} from "@material-ui/icons"
 
 function FeaturedInfo() {
+    
     return (
         <div className='featured'>
             <div className="featuredItem">
