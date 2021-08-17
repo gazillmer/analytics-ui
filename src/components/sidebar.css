@@ -1,11 +1,14 @@
+a {
+    text-decoration: none;
+}
+
 .sidebar {
-    flex: 1;
+    width: 300px;
     height: 100vh;
     background-color: rgb(47, 50, 78);
     color: white;  
     position: sticky;
 }
-
 
 .sidebarTitle {
     font-size: 36px;
@@ -31,7 +34,6 @@
     margin-bottom: 5px;
 }
 
-
 .sidebarListItem.active{
     background-color: rgb(67, 70, 102);
 }
@@ -39,8 +41,6 @@
     margin-left: 5px;
     transition: 0.1s;
 }
-
-
 
 .sidebarIcon {
     margin-right: 15px;

@@ -1,34 +1,41 @@
 import React from 'react'
-import './sidebar.css'
-
+import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
 import { FlightTakeoff, Info, Twitter, Work, Poll } from '@material-ui/icons';
 
+import './sidebar.css'
 
 function Sidebar() {
     return (
         <div className="sidebar">
-
             <h3 className="sidebarTitle">Analytics UI</h3>
             <ul className="sidebarList">
-                <li className="sidebarListItem active">
-                    <FlightTakeoff className="sidebarIcon" />
-                    flight information
+                <li className="sidebarListItem">
+                    <Link to="/flights" style={{ textDecoration: 'none', color: "white"}}>
+                        <FlightTakeoff className="sidebarIcon" />
+                        flight information
+                    </Link>
                 </li>
                 <li className="sidebarListItem">
-                    <Twitter className="sidebarIcon" />
-                    social-media
+                    <Link to="/#" style={{ textDecoration: 'none', color: "white"}}>
+                        <Twitter className="sidebarIcon" />
+                        social-media
+                    </Link>
                 </li>
                 <li className="sidebarListItem">
-                    <Work className="sidebarIcon" />
-                    travel-related websites
+                    <Link to="/#" style={{ textDecoration: 'none', color: "white"}}>
+                        <Work className="sidebarIcon" />
+                        travel-related websites
+                    </Link>
                 </li>
                 <li className="sidebarListItem">
                     <Poll className="sidebarIcon" />
                     google trends
                 </li>
                 <li className="sidebarListItem">
-                    <Info className="sidebarIcon" />
-                    about
+                    <Link to="/about" style={{ textDecoration: 'none', color: "white"}}>
+                        <Info className="sidebarIcon" />
+                        about
+                    </Link>
                 </li>
             </ul>
 

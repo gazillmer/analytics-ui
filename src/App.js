@@ -14,8 +14,8 @@ function App() {
         <Sidebar />
         <Switch>
           <Route path = '/' exact component = {About} />
-          <Route path = '/flights' exact component = {FeaturedInfo} />
-          <Route path = '/' exact component = {About} />
+          <Route path = '/about' component = {About} />
+          <Route path = '/flights' component = {FeaturedInfo} />
         </Switch>
       </Router>
     </div>
