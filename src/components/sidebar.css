@@ -3,7 +3,7 @@ a {
 }
 
 .sidebar {
-    width: 300px;
+    width: 275px;
     height: 100vh;
     background-color: rgb(47, 50, 78);
     color: white;  
@@ -17,6 +17,7 @@ a {
     align-items: center;
     justify-content: center;
     background-color: rgb(36, 38, 59);
+    cursor: pointer;
 }
 
 .sidebarList {

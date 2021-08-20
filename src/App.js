@@ -14,6 +14,7 @@ const usePathname = () => {
 
 function App() {
   const pathname = window.location.pathname;
+  console.log(pathname)
   return (
     <div className='container'>
       <Router>
