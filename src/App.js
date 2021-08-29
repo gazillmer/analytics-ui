@@ -4,6 +4,7 @@ import { BrowserRouter as Router, Switch, Route, useLocation} from 'react-router
 import Sidebar from './components/Sidebar';
 import About from './components/pages/About'
 import FeaturedInfo from './components/featuredInfo/FeaturedInfo';
+import BarChart from './components/charts/BarChart';
 
 import './app.css'
 
@@ -22,7 +23,7 @@ function App() {
         <Switch>
           <Route path = '/' exact component = {About} />
           <Route path = '/about' component = {About} />
-          <Route path = '/flights' component = {FeaturedInfo} />
+          <Route path = '/flights' component = {BarChart} />
         </Switch>
       </Router>
     </div>
