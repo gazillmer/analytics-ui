@@ -1,9 +1,14 @@
-.chart {
+.chart-container {
     -webkit-box-shadow: 0px 0px 5px -1px rgba(0,0,0,0.5); 
     box-shadow: 0px 0px 5px -1px rgba(0,0,0,0.5);
-    padding: 20px;
+    padding: 20px 20px 0 20px;
     margin: 20px;
     border-radius: 10px;
-    background-color: red;
+    height: 400px;
+    width: 500px;
 }
 
+.chart-title {
+    font-size: 18pt;
+    margin-bottom: 25px;
+}
