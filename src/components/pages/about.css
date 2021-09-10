@@ -1,4 +1,6 @@
-
+* {
+    background-color: #fafafa;
+}
 
 .about {
     flex: 4;
@@ -11,16 +13,19 @@
 }
 
 .title {
-    margin-bottom: 30px;   
+    margin-bottom: 30px;
+    background-color: white;
 }
 .titleText {
     font-size: 36px;
+    background-color: white;
 }
 
 .textInfo {
     text-align: justify;
     font-size:  16px;
     line-height: 26px;   
+    background-color: white;
 }
 
 .textInfo a {

@@ -1,11 +1,13 @@
 import React from 'react'
 import { Line } from 'react-chartjs-2'
+import { Button, CloseButton } from 'react-bootstrap';
 import './barChart.css'
 
 const BarChart = () => {
     return (
         <div className='chart-container'>
-            <div className="chart-title">Line Chart</div>
+            <CloseButton variant="white" />
+            <div className="chart-title">Flights from POA to BSB</div>
             <Line
                 data = {{
                     labels: ['01-2010','02-2010','03-2010','07-2010','08-2010','06-2010'],
@@ -20,12 +22,12 @@ const BarChart = () => {
                         }
                     ]
                 }}
-                height={400}
+                height={310}
                 width={600}
                 options={{
                     plugins:{
                         legend:{
-                            position: 'bottom'
+                            display: false
                         }
                     },
                     scales: {

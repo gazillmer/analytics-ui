@@ -5,10 +5,12 @@
     margin: 20px;
     border-radius: 10px;
     height: 400px;
-    width: 500px;
+    width: 600px;
 }
 
 .chart-title {
     font-size: 18pt;
+    font-weight: 700;
     margin-bottom: 25px;
 }
+

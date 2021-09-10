@@ -1,20 +1,14 @@
 import React from 'react';
 import Axios from 'axios'
+import BarChart from '../charts/BarChart';
+import ChartEditor from '../charts/ChartEditor';
 
 function TravelWebsites() {
 
-    const getData = () => {
-        Axios.get("https://analytics-api-325214.rj.r.appspot.com/flights/info").then(
-            (response) => {
-                console.log(response)
-            }
-        );
-    };
-
     return (
         <div>
-            Hello
-            <button onClick={getData}>Get Data from Flights</button>
+            <ChartEditor />
+
         </div>
     )
 }

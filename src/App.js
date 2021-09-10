@@ -6,6 +6,7 @@ import About from './components/pages/About'
 import FeaturedInfo from './components/featuredInfo/FeaturedInfo';
 import BarChart from './components/charts/BarChart';
 import TravelWebsites from './components/pages/TravelWebsites';
+import Flights from './components/pages/Flights';
 
 import './app.css'
 
@@ -24,7 +25,7 @@ function App() {
         <Switch>
           <Route path = '/' exact component = {TravelWebsites} />
           <Route path = '/about' component = {About} />
-          <Route path = '/flights' component = {BarChart} />
+          <Route path = '/flights' component = {Flights} />
         </Switch>
       </Router>
     </div>

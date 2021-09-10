@@ -34,6 +34,7 @@ a {
     border-radius: 10px;
     height: 35px;
     margin-bottom: 5px;
+    background-color: inherit;
 }
 
 .sidebarListItem.active{
@@ -44,9 +45,14 @@ a {
     transition: 0.1s;
 }
 
+.sidebarListItem a {
+    background-color: rgb(47, 50, 78);
+}
+
 .sidebarIcon {
     margin-right: 15px;
     margin-left: 10px;
     font-size: 20px !important;
+    background-color: rgb(47, 50, 78);
 }
 

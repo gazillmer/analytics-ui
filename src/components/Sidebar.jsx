@@ -28,10 +28,6 @@ function Sidebar() {
                     </Link>
                 </li>
                 <li className="sidebarListItem">
-                    <Poll className="sidebarIcon" />
-                    google trends
-                </li>
-                <li className="sidebarListItem">
                     <Link to="/about" style={{ textDecoration: 'none', color: "white"}}>
                         <Info className="sidebarIcon" />
                         about
