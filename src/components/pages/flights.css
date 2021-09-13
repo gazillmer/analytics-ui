@@ -2,12 +2,7 @@
     background-color: #fafafa;
 }
 
-.flights-grid {
-    flex: 4;
-    margin: 50px;
-    padding: 50px;
-    -webkit-box-shadow: 0px 0px 5px -1px rgba(0,0,0,0.5); 
-    box-shadow: 0px 0px 5px -1px rgba(0,0,0,0.5);
-    border-radius: 10px;
-    background-color: white;
+.flights-grid{
+    display: flex;
+    justify-content: space-between;
 }

@@ -7,7 +7,7 @@ function TravelWebsites() {
 
     return (
         <div>
-            <ChartEditor />
+            <BarChart />
 
         </div>
     )
