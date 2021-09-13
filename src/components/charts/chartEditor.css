@@ -1,6 +1,6 @@
 /* Button */
 
-.create-chart-button {
+#create-chart-button {
     position: fixed;
     top: 90%;
     right: 30px;
@@ -19,7 +19,7 @@
     box-shadow: 0px 0px 5px -1px rgba(0,0,0,0.5);
 }
 
-.plus-signal {
+#plus-icon {
     background-color: rgb(47, 50, 78);
 }
 
@@ -35,6 +35,22 @@ fieldset {
     background-color: #fafafa;
 }
 
+.ReactModal__Overlay {
+    opacity: 0;
+    transform: translateX(100px);
+    transition: all 500ms ease-in-out;
+  }
+  
+  .ReactModal__Overlay--after-open {
+    opacity: 1;
+    transform: translateX(0px);
+  }
+  
+  .ReactModal__Overlay--before-close {
+    opacity: 0;
+    transform: translateX(100px);
+  }
+  
 
 .modal-container {
     width:20%;
@@ -48,8 +64,6 @@ fieldset {
     -webkit-box-shadow: 0px 0px 11px -1px rgba(0,0,0,0.5); 
     box-shadow: 0px 0px 5px -1px rgba(0,0,0,0.5);
     border: none;
-
-    transition: margin-right 0.5s;
 }
 
 .modal-title {

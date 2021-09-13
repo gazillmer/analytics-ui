@@ -1,13 +1,19 @@
 import React from 'react'
 import { Line } from 'react-chartjs-2'
-import { Button, CloseButton } from 'react-bootstrap';
 import './barChart.css'
+
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 const BarChart = () => {
     return (
         <div className='chart-container'>
-            <CloseButton variant="white" />
-            <div className="chart-title">Flights from POA to BSB</div>
+            
+            <div className="chart-title">
+                Flights from POA to BSB
+                <FontAwesomeIcon icon={faTimes} id='button-close'/>
+            </div>
+
             <Line
                 data = {{
                     labels: ['01-2010','02-2010','03-2010','07-2010','08-2010','06-2010'],

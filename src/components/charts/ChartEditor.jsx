@@ -17,8 +17,8 @@ function ChartEditor() {
 
     return (
         <div>
-            <button className='create-chart-button' onClick={handleShow}>
-                <div className="plus-icon">
+            <button id='create-chart-button' onClick={handleShow}>
+                <div id="plus-icon">
                     +
                 </div>
             </button>
@@ -30,75 +30,65 @@ function ChartEditor() {
                 onRequestClose={handleClose}
                 contentLabel="Example Modal"
             >
-                <div className="modal-title">
-                    Create New Chart
-                </div>
+                <div className="modal-title">Create New Chart</div>
                 <hr />
                 <form className='form-content'>
-                    <fieldset>
-                        <label>
-                            Name
-                            <input
-                                type="text"
-                                name="name"
-                                placeholder="Add chart title"
-                                value={title}
-                                onChange={({ target: { value } }) => setTitle(value)}
-                            />
-                        </label>
-                        <label>
-                            Calculate by
-                            <input
-                                type="text"
-                                name="inxed"
-                                placeholder="Select value you want to calculate"
-                                value={index}
-                                onChange={({ target: { value } }) => setIndex(value)}
-                            />
-                        </label>
-                        <label>
-                            Set start year
-                            <input
-                                type="text"
-                                name="fromYear"
-                                placeholder="From"
-                                value={fromYear}
-                                onChange={({ target: { value } }) => setFromYear(value)}
-                            />
-                        </label>
-                        <label>
-                            Set end year
-                            <input
-                                type="text"
-                                name="toYear"
-                                placeholder="To"
-                                value={toYear}
-                                onChange={({ target: { value } }) => setToYear(value)}
-                            />
-                        </label>
-                        <label>
-                            Chart Type
-                            <select
-                                value={chartType}
-                                name="chart-type"
-                                onChange={({ target: { value } }) => setChartType(value)}>
-                                <option value={""}>Please choose an option</option>
-                                <option value="line">Line</option>
-                                <option value="bar">Bar</option>
-                                <option value="heatmap">Heatmap</option>
-                            </select>
-                        </label>
-
-                    </fieldset>
+                    <label>
+                        Name
+                        <input
+                            type="text"
+                            name="name"
+                            placeholder="Add chart title"
+                            value={title}
+                            onChange={({ target: { value } }) => setTitle(value)}
+                        />
+                    </label>
+                    <label>
+                        Calculate by
+                        <input
+                            type="text"
+                            name="inxed"
+                            placeholder="Select value you want to calculate"
+                            value={index}
+                            onChange={({ target: { value } }) => setIndex(value)}
+                        />
+                    </label>
+                    <label>
+                        Set start year
+                        <input
+                            type="text"
+                            name="fromYear"
+                            placeholder="From"
+                            value={fromYear}
+                            onChange={({ target: { value } }) => setFromYear(value)}
+                        />
+                    </label>
+                    <label>
+                        Set end year
+                        <input
+                            type="text"
+                            name="toYear"
+                            placeholder="To"
+                            value={toYear}
+                            onChange={({ target: { value } }) => setToYear(value)}
+                        />
+                    </label>
+                    <label>
+                        Chart Type
+                        <select
+                            value={chartType}
+                            name="chart-type"
+                            onChange={({ target: { value } }) => setChartType(value)}>
+                            <option value={""}>Please choose an option</option>
+                            <option value="line">Line</option>
+                            <option value="bar">Bar</option>
+                            <option value="heatmap">Heatmap</option>
+                        </select>
+                    </label>
 
                     <button className='button-submit' type="submit">Create chart</button>
-
                 </form>
-
-
             </Modal>
-
-
         </div>
     )
 }
