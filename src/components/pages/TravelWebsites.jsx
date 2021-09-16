@@ -1,14 +1,13 @@
 import React from 'react';
 import Axios from 'axios'
-import BarChart from '../charts/BarChart';
+import LineChart from '../charts/LineChart';
 import ChartEditor from '../charts/ChartEditor';
 
 function TravelWebsites() {
 
     return (
         <div>
-            <BarChart />
-
+            <LineChart />
         </div>
     )
 }
