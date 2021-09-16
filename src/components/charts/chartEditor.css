@@ -2,10 +2,10 @@
 
 #create-chart-button {
     position: fixed;
-    top: 90%;
+    top: 91%;
     right: 30px;
-    height: 50px;
-    width: 50px;
+    height: 60px;
+    width: 60px;
     border-radius: 50%;
     background-color: rgb(47, 50, 78);
     color: white;
@@ -39,17 +39,17 @@ fieldset {
     opacity: 0;
     transform: translateX(100px);
     transition: all 500ms ease-in-out;
-  }
+}
   
-  .ReactModal__Overlay--after-open {
+.ReactModal__Overlay--after-open {
     opacity: 1;
     transform: translateX(0px);
-  }
+}
   
-  .ReactModal__Overlay--before-close {
+.ReactModal__Overlay--before-close {
     opacity: 0;
     transform: translateX(100px);
-  }
+}
   
 
 .modal-container {
@@ -60,9 +60,9 @@ fieldset {
     margin:0;
     padding: 20px;
     background-color: #fafafa;
-    border-radius: 10px;
-    -webkit-box-shadow: 0px 0px 11px -1px rgba(0,0,0,0.5); 
-    box-shadow: 0px 0px 5px -1px rgba(0,0,0,0.5);
+    border-radius: 15px 0 0 15px;
+    -webkit-box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.5); 
+    box-shadow: 0px 0px 10px -1px rgba(0,0,0,0.5);
     border: none;
 }
 

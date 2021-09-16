@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 import Modal from 'react-modal'
+import { Typeahead } from 'react-bootstrap-typeahead'
 import './chartEditor.css'
 
 function ChartEditor() {
@@ -15,6 +16,8 @@ function ChartEditor() {
     const [index, setIndex] = useState('passengers_paid');
     const [filters, setFilters] = useState('');
 
+    const { data } = {}
+
     return (
         <div>
             <button id='create-chart-button' onClick={handleShow}>
@@ -28,7 +31,8 @@ function ChartEditor() {
                 closeTimeoutMS={500}
                 isOpen={show}
                 onRequestClose={handleClose}
-                contentLabel="Example Modal"
+                contentLabel="Chart Editor"
+                ariaHideApp={false}
             >
                 <div className="modal-title">Create New Chart</div>
                 <hr />
@@ -47,16 +51,17 @@ function ChartEditor() {
                         Calculate by
                         <input
                             type="text"
-                            name="inxed"
+                            name="index"
                             placeholder="Select value you want to calculate"
                             value={index}
                             onChange={({ target: { value } }) => setIndex(value)}
                         />
+
                     </label>
                     <label>
-                        Set start year
+                        Set starting date
                         <input
-                            type="text"
+                            type="date"
                             name="fromYear"
                             placeholder="From"
                             value={fromYear}
@@ -64,9 +69,9 @@ function ChartEditor() {
                         />
                     </label>
                     <label>
-                        Set end year
+                        Set ending date
                         <input
-                            type="text"
+                            type="date"
                             name="toYear"
                             placeholder="To"
                             value={toYear}
@@ -85,7 +90,6 @@ function ChartEditor() {
                             <option value="heatmap">Heatmap</option>
                         </select>
                     </label>
-
                     <button className='button-submit' type="submit">Create chart</button>
                 </form>
             </Modal>
