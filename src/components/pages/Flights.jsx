@@ -1,11 +1,17 @@
-import React, { useState } from 'react'
-import ButtonAdd from '../others/ButtonAdd'
-import ChartEditor from '../charts/ChartEditor';
 import './flights.css'
+import ApiRequest from '../others/ApiRequest';
+import LineChart from '../charts/LineChart';
+import ChartEditor from '../charts/ChartEditor';
 
 function Flights() {
     return(
-        <ChartEditor />
+        <div className="flights-container">
+            <LineChart />
+            <LineChart />
+            <LineChart />
+            <LineChart />
+            <ChartEditor />
+        </div>
     )
 }
 

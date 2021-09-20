@@ -1,6 +1,6 @@
 import React from 'react'
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom'
-import { FlightTakeoff, Info, Twitter, Work, Poll } from '@material-ui/icons';
+import { Link } from 'react-router-dom'
+import { FlightTakeoff, Info, Twitter, Work } from '@material-ui/icons';
 
 import './sidebar.css'
 

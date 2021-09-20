@@ -1,0 +1,3 @@
+Backlog:
+
+- Verificar problemas com Netlify CLI (deploy via linha de comando)

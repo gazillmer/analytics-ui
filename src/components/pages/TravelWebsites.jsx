@@ -1,15 +1,16 @@
 import React from 'react';
-import Axios from 'axios'
 import LineChart from '../charts/LineChart';
 import ChartEditor from '../charts/ChartEditor';
 
 function TravelWebsites() {
-
     return (
-        <div>
+        <div className = 'container'>
             <LineChart />
+            <LineChart />
+            <LineChart />
+            <LineChart />
+            <ChartEditor />
         </div>
     )
 }
-
 export default TravelWebsites
