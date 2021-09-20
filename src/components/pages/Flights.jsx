@@ -1,7 +1,7 @@
 import './flights.css'
-import ApiRequest from '../others/ApiRequest';
 import LineChart from '../charts/LineChart';
 import ChartEditor from '../charts/ChartEditor';
+import Loader from '../others/Loader';
 
 function Flights() {
     return(
@@ -9,7 +9,7 @@ function Flights() {
             <LineChart />
             <LineChart />
             <LineChart />
-            <LineChart />
+            <Loader />
             <ChartEditor />
         </div>
     )

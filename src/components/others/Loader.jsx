@@ -10,8 +10,7 @@ function Loader() {
                 height={100}
                 width={100}
                 visible={true}
-            />
-            
+            />         
         </div>
     )
 }

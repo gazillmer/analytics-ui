@@ -1,0 +1,1 @@
+export const API_URL = `https://analytics-api-325214.rj.r.appspot.com/`
