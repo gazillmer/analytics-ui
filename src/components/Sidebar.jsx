@@ -22,7 +22,7 @@ function Sidebar() {
                     </Link>
                 </li>
                 <li className="sidebarListItem">
-                    <Link to="/#" style={{ textDecoration: 'none', color: "white"}}>
+                    <Link to="/websites" style={{ textDecoration: 'none', color: "white"}}>
                         <Work className="sidebarIcon" />
                         travel-related websites
                     </Link>

@@ -4,7 +4,7 @@ import ChartEditor from '../charts/ChartEditor';
 import Loader from '../others/Loader';
 
 function Flights() {
-    return(
+    return (
         <div className="flights-container">
             <LineChart />
             <LineChart />
