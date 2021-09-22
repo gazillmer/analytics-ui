@@ -31,7 +31,7 @@ function TravelWebsites() {
             text: ''
         },
         legend: {
-            enabled: false
+            enabled: true
         },
         xAxis: {
             categories: chartData["Month"],
