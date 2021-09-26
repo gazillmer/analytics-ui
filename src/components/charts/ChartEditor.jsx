@@ -1,4 +1,4 @@
-import React, { useState} from 'react'
+import React, { useState } from 'react'
 import { useQuery } from 'react-query';
 import { API_URL } from '../../constants';
 import axios from 'axios';
@@ -17,8 +17,8 @@ function ChartEditor({ showEditor, setShowEditor }) {
     const [chartType, setChartType] = useState("line");
     const [fromYear, setFromYear] = useState("2016");
     const [toYear, setToYear] = useState('2021');
-    const [index, setIndex] = useState('passengers_paid');
-    //const [filters, setFilters] = useState('');
+    const [index, setIndex] = useState('Select value');
+    const [filters, setFilters] = useState('');
     //const [chartData, setChartData] = useState([])
 
     const { data, status } = useQuery('get-info', () => axios.get(`${API_URL}flights/info`))
@@ -26,7 +26,7 @@ function ChartEditor({ showEditor, setShowEditor }) {
 
     return (
         <Modal
-            onRequestClose={() => setShowEditor(false)}
+            onRequestClose={false}
             className='modal-container'
             closeTimeoutMS={500}
             isOpen={true}
@@ -38,8 +38,10 @@ function ChartEditor({ showEditor, setShowEditor }) {
                     <Loader type={"TailSpin"} color={"#2f324e"} />
                 </div>) :
                 (<>
-                    <div className="modal-title">Create New Chart</div>
-                    <FontAwesomeIcon icon={faTimes} id='button-close' />
+                    <div className="modal-header">
+                        <div className="modal-title">Create New Chart</div>
+                        <FontAwesomeIcon icon={faTimes} className='modal-button-close' />
+                    </div>
                     <hr />
                     <form className='form-content'>
                         <label>
@@ -57,11 +59,11 @@ function ChartEditor({ showEditor, setShowEditor }) {
                             <select
                                 value={index}
                                 name="index"
-                                placeholder="Select value you want to calculate"
                                 onChange={({ target: { value } }) => setIndex(value)}
                             >
+                                <option value={""}>Select value</option>
                                 {data.data['indexes'].map(value => (
-                                <option key={value} value={value}>{value}</option>
+                                    <option key={value} value={value}>{value}</option>
                                 ))
                                 }
                             </select>
@@ -99,6 +101,21 @@ function ChartEditor({ showEditor, setShowEditor }) {
                                 <option value="heatmap">Heatmap</option>
                             </select>
                         </label>
+                        <label>
+                            Filters
+                            <select
+                                value={filters}
+                                name="filters"
+                                onChange={({ target: { value } }) => setFilters(value)}
+                            >
+                                <option value={""}>Select filters</option>
+                                {Object.keys(data.data['filters']).map(value => (
+                                    <option key={value} value={value}>{value}</option>
+                                ))
+                                }
+                            </select>
+                        </label>
+
                         <button className='button-submit' type="submit">Create chart</button>
                     </form>
                 </>)}

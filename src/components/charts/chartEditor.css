@@ -48,12 +48,28 @@ fieldset {
     border: none;
 }
 
+.modal-header {
+    display: flex;
+    position: relative;
+}
+
 .modal-title {
     margin-top: 20px;
     margin-bottom: 20px;
     font-size: 28px;
     font-weight: 700;
     background-color: inherit;
+}
+
+.modal-button-close {
+    position: absolute;
+    right: 0;
+    top: 40%;
+    cursor: pointer;
+}
+
+.modal-button-close:hover {
+   color: grey;
 }
 
 .form-content {
