@@ -1,32 +1,14 @@
-/* Button */
+/* Spinner */
 
-#create-chart-button {
-    position: fixed;
-    top: 91%;
-    right: 30px;
-    height: 60px;
-    width: 60px;
-    border-radius: 50%;
-    background-color: rgb(47, 50, 78);
-    color: white;
-    font-size: 30px;
+.spinner {
+    height: 100%;
     display: flex;
     align-items: center;
     justify-content: center;
-    cursor: pointer;
-
-    -webkit-box-shadow: 0px 0px 11px -1px rgba(0,0,0,0.5); 
-    box-shadow: 0px 0px 5px -1px rgba(0,0,0,0.5);
 }
 
-#plus-icon {
-    background-color: rgb(47, 50, 78);
-}
 
-.button:hover {
-    background-color: rgb(67, 70, 102);
 
-}
 
 /* Modal */
 

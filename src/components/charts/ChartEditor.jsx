@@ -1,16 +1,16 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState} from 'react'
+import { useQuery } from 'react-query';
 import { API_URL } from '../../constants';
 import axios from 'axios';
 import Modal from 'react-modal'
-import Loader from '../others/Loader'
+import Loader from 'react-loader-spinner';
+
 import './chartEditor.css'
 
-function ChartEditor() {
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
-    // Modal chart editor control
-    const [show, setShow] = useState(false);
-    const handleShow = () => setShow(true);
-    const handleClose = () => setShow(false);
+function ChartEditor({ showEditor, setShowEditor }) {
 
     // Chart data
     const [title, setTitle] = useState("Untitled chart");
@@ -18,100 +18,91 @@ function ChartEditor() {
     const [fromYear, setFromYear] = useState("2016");
     const [toYear, setToYear] = useState('2021');
     const [index, setIndex] = useState('passengers_paid');
-    const [filters, setFilters] = useState('');
-    const [chartData, setChartData] = useState(null)
+    //const [filters, setFilters] = useState('');
+    //const [chartData, setChartData] = useState([])
 
-    const url = API_URL
-
-    useEffect(() => {
-        axios.get(`${API_URL}/tweets/info`)
-            .then(response => {
-                setChartData(response.data)
-            })
-    }, [API_URL])
+    const { data, status } = useQuery('get-info', () => axios.get(`${API_URL}flights/info`))
+    console.log(data)
 
     return (
-        <div>
-            <button id='create-chart-button' onClick={handleShow}>
-                <div id="plus-icon">
-                    +
-                </div>
-            </button>
-
-            <Modal
-                className='modal-container'
-                closeTimeoutMS={500}
-                isOpen={show}
-                onRequestClose={handleClose}
-                contentLabel="Chart Editor"
-                ariaHideApp={false}
-            >
-                <div className="modal-title">Create New Chart</div>
-                <hr />
-
-                <form className='form-content'>
-                    <label>
-                        Name
-                        <input
-                            type="text"
-                            name="name"
-                            placeholder="Add chart title"
-                            value={title}
-                            onChange={({ target: { value } }) => setTitle(value)}
-                        />
-                    </label>
-                    <label>
-                        Calculate by
-                        <select
-                            value={index}
-                            name="index"
-                            placeholder="Select value you want to calculate"
-                            onChange={({ target: { value } }) => setIndex(value)}
-                        >
-                        </select>
-                    </label>
-                    <label>
-                        Set starting date
-                        <input
-                            type="date"
-                            name="fromYear"
-                            placeholder="From"
-                            value={fromYear}
-                            onChange={({ target: { value } }) => setFromYear(value)}
-                        />
-                    </label>
-                    <label>
-                        Set ending date
-                        <input
-                            type="date"
-                            name="toYear"
-                            placeholder="To"
-                            value={toYear}
-                            onChange={({ target: { value } }) => setToYear(value)}
-                        />
-                    </label>
-                    <label>
-                        Chart Type
-                        <select
-                            value={chartType}
-                            name="chart-type"
-                            onChange={({ target: { value } }) => setChartType(value)}
-                        >
-                            <option value={""}>Please choose an option</option>
-                            <option value="line">Line</option>
-                            <option value="bar">Bar</option>
-                            <option value="heatmap">Heatmap</option>
-                        </select>
-                    </label>
-                    <button className='button-submit' type="submit">Create chart</button>
-                </form>
-            </Modal>
-        </div>
+        <Modal
+            onRequestClose={() => setShowEditor(false)}
+            className='modal-container'
+            closeTimeoutMS={500}
+            isOpen={true}
+            contentLabel="Chart Editor"
+            ariaHideApp={false}
+        >
+            {status === 'loading' ?
+                (<div className="spinner">
+                    <Loader type={"TailSpin"} color={"#2f324e"} />
+                </div>) :
+                (<>
+                    <div className="modal-title">Create New Chart</div>
+                    <FontAwesomeIcon icon={faTimes} id='button-close' />
+                    <hr />
+                    <form className='form-content'>
+                        <label>
+                            Name
+                            <input
+                                type="text"
+                                name="name"
+                                placeholder="Add chart title"
+                                value={title}
+                                onChange={({ target: { value } }) => setTitle(value)}
+                            />
+                        </label>
+                        <label>
+                            Calculate by
+                            <select
+                                value={index}
+                                name="index"
+                                placeholder="Select value you want to calculate"
+                                onChange={({ target: { value } }) => setIndex(value)}
+                            >
+                                {data.data['indexes'].map(value => (
+                                <option key={value} value={value}>{value}</option>
+                                ))
+                                }
+                            </select>
+                        </label>
+                        <label>
+                            Set starting date
+                            <input
+                                type="date"
+                                name="fromYear"
+                                placeholder="From"
+                                value={fromYear}
+                                onChange={({ target: { value } }) => setFromYear(value)}
+                            />
+                        </label>
+                        <label>
+                            Set ending date
+                            <input
+                                type="date"
+                                name="toYear"
+                                placeholder="To"
+                                value={toYear}
+                                onChange={({ target: { value } }) => setToYear(value)}
+                            />
+                        </label>
+                        <label>
+                            Chart Type
+                            <select
+                                value={chartType}
+                                name="chart-type"
+                                onChange={({ target: { value } }) => setChartType(value)}
+                            >
+                                <option value={""}>Please choose an option</option>
+                                <option value="line">Line</option>
+                                <option value="bar">Bar</option>
+                                <option value="heatmap">Heatmap</option>
+                            </select>
+                        </label>
+                        <button className='button-submit' type="submit">Create chart</button>
+                    </form>
+                </>)}
+        </Modal>
     )
 }
 export default ChartEditor
-
-/*
-{loading ? (
-                    <Loader />
-                ) : ( */

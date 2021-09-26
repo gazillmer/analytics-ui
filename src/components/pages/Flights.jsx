@@ -1,15 +1,12 @@
 import './flights.css'
 import LineChart from '../charts/LineChart';
+import ButtonAdd from '../others/ButtonAdd';
+import AddChart from '../others/AddChart';
 import ChartEditor from '../charts/ChartEditor';
-import Loader from '../others/Loader';
 
 function Flights() {
     return (
         <div className="flights-container">
-            <LineChart />
-            <LineChart />
-            <LineChart />
-            <Loader />
             <ChartEditor />
         </div>
     )

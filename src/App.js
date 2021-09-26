@@ -2,27 +2,29 @@ import React from 'react'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 
 import Sidebar from './components/Sidebar';
-import About from './components/pages/About'
+import About from './components/pages/About';
 import TravelWebsites from './components/pages/TravelWebsites';
 import Flights from './components/pages/Flights';
+import styled from 'styled-components';
 
-import './app.css'
+// Style App structure
+const Container = styled.div`
+  display: flex;
+`
 
-function App() {
-  const pathname = window.location.pathname;
-  console.log(pathname)
+function App() { 
   return (
-    <div className='container'>
+    <Container>
       <Router>
         <Sidebar />
         <Switch>
-          <Route path = '/' exact component = {About} />
+          <Route path = '/' exact component = {Flights} />
           <Route path = '/about' component = {About} />
           <Route path = '/flights' component = {Flights} />
           <Route path = '/websites' component = {TravelWebsites} />
         </Switch>
       </Router>
-    </div>
+    </Container>
   );
 }
 

@@ -2,6 +2,8 @@ import React, { useState } from 'react'
 import styled from 'styled-components'
 import ChartEditor from '../charts/ChartEditor';
 
+import { FaPlus } from "react-icons/fa";
+
 // Styling
 const Button = styled.div`
     font-size: 30px;
@@ -29,21 +31,24 @@ const Button = styled.div`
     }
 `
 
-function ButtonAdd() {
+function AddChart() {
 
-    // Modal chart editor control
-    const [showEditor, setShowEditor] = useState(false);
+    // Modal chart  control
+    const [show, setShow] = useState(false);
 
     const handleModal = () => {
-        setShowEditor(prev => !prev);
+        setShow(prev => !prev);
     }
 
     return (
         <>
-            <Button onClick={handleModal}>+</Button>
-            {showEditor ? (<ChartEditor show={showEditor} setShow={setShowEditor} />) : null}
+            <Button onClick={handleModal}>
+                + 
+            </Button>
+            {show ? (<ChartEditor show={show} setShow={setShow} />) : null}
         </>
     )
 }
 
-export default ButtonAdd
+
+export default AddChart
