@@ -3,7 +3,7 @@
 }
 
 .flights-container{
-    margin: 20px;
+    position: relative;
     width: calc(100% - 275px);
     display: grid;
     grid-gap: 20px;

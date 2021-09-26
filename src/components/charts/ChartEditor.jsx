@@ -2,7 +2,6 @@ import React, { useState } from 'react'
 import { useQuery } from 'react-query';
 import { API_URL } from '../../constants';
 import axios from 'axios';
-import Modal from 'react-modal'
 import Loader from 'react-loader-spinner';
 
 import './chartEditor.css'
@@ -10,7 +9,7 @@ import './chartEditor.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
-function ChartEditor({ showEditor, setShowEditor }) {
+function ChartEditor({ onClose = () => { } }) {
 
     // Chart data
     const [title, setTitle] = useState("Untitled chart");
@@ -25,14 +24,7 @@ function ChartEditor({ showEditor, setShowEditor }) {
     console.log(data)
 
     return (
-        <Modal
-            onRequestClose={false}
-            className='modal-container'
-            closeTimeoutMS={500}
-            isOpen={true}
-            contentLabel="Chart Editor"
-            ariaHideApp={false}
-        >
+        <div className="modal-container">
             {status === 'loading' ?
                 (<div className="spinner">
                     <Loader type={"TailSpin"} color={"#2f324e"} />
@@ -40,7 +32,9 @@ function ChartEditor({ showEditor, setShowEditor }) {
                 (<>
                     <div className="modal-header">
                         <div className="modal-title">Create New Chart</div>
-                        <FontAwesomeIcon icon={faTimes} className='modal-button-close' />
+                        <button className='modal-button-close' onClick={onClose}>
+                            <FontAwesomeIcon icon={faTimes} />
+                        </button>
                     </div>
                     <hr />
                     <form className='form-content'>
@@ -119,7 +113,7 @@ function ChartEditor({ showEditor, setShowEditor }) {
                         <button className='button-submit' type="submit">Create chart</button>
                     </form>
                 </>)}
-        </Modal>
+        </div>
     )
 }
 export default ChartEditor
