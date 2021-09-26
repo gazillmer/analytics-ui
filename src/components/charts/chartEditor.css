@@ -14,25 +14,14 @@ fieldset {
     background-color: #fafafa;
 }
 
-/*
-.ReactModal__Overlay {
-    opacity: 0;
-    transform: translateX(100px);
-    transition: all 500ms ease-in-out;
+.modal {
+    width: 80%;
+    height: 100%;
+    z-index: 10;
 }
-  
-.ReactModal__Overlay--after-open {
-    opacity: 1;
-    transform: translateX(0px);
-}
-  
-.ReactModal__Overlay--before-close {
-    opacity: 0;
-    transform: translateX(100px);
-}
-*/
 
 .modal-container {
+    z-index: 100;
     width:20%;
     position:fixed;
     bottom:0;
@@ -77,7 +66,7 @@ fieldset {
 .form-content {
     border: none;
     margin-top: 20px;
-    font-size: 18px;
+    font-size: 16px;
 }
 
 input, select {

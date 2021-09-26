@@ -6,6 +6,11 @@ import ChartEditor from '../charts/ChartEditor';
 function Flights() {
 
     const [showEditor, setShowEditor] = useState(false);
+    const [charts, setCharts] = useState(getDefault);
+
+    useEffect(() => {
+      localStorage.setItem('saved-charts', JSON.stringify(charts));
+    }, [charts]);
 
     return (
         <div className="flights-container">
