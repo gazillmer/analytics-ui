@@ -23,9 +23,9 @@ function Flights() {
 
     return (
         <div className="flights-container">
-            <LineChart />
-            <LineChart />
-            <LineChart />
+            <LineChart title="Flights from POA to GRU"/>
+            <LineChart title="Flights from GRU to GIG"/>
+            <LineChart title="Flights from POA to EZE"/>
 
             <Button
                 onClick={() => setShowEditor(true)}
@@ -37,6 +37,7 @@ function Flights() {
             {showEditor &&
                 <ChartEditor
                     onClose={() => setShowEditor(false)}
+                    endpoint='flights'
                 />
             }
         </div>
@@ -61,7 +62,7 @@ const Button = styled.button`
     cursor: pointer;
 
     color: white;
-    background-color: rgb(15, 15, 202);
+    background-color: rgb(98, 41, 189);
 
     -webkit-box-shadow: 0px 0px 11px -1px rgba(0,0,0,0.5); 
     box-shadow: 0px 0px 5px -1px rgba(0,0,0,0.5);

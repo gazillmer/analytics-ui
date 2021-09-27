@@ -12,8 +12,9 @@ import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 function ChartEditor({ 
     onClose = () => { }, 
-    onSave = () => {}}
-) {
+    onSave = () => {},
+    endpoint
+}) {
 
     // Chart data
     const [title, setTitle] = useState("");
@@ -23,10 +24,18 @@ function ChartEditor({
     const [index, setIndex] = useState('');
     const [filters, setFilters] = useState('');
     //const [chartData, setChartData] = useState([])
+    //console.log(endpoint)
 
-    const { data, status } = useQuery('get-info', () => axios.get(`${API_URL}flights/info`))
-    
-    //const { data, status } = useQuery('get-info', () => axios.get(`${API_URL}flights/info`))
+    const { data, status, error} = useQuery('get-info', () => axios.get(`${API_URL}${endpoint}/info`))
+
+    if(error) return (
+        <div className="modal">
+            <div className="modal-container-error">
+                <h3>Woops, error fetching the data :(</h3>
+                <p>the dev sucks</p>
+            </div>
+        </div>
+    )
 
     return (
         <div className="modal">

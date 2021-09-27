@@ -13,6 +13,7 @@ const options = {
         reflow: true,
         height: 280
     },
+    colors: ['#5a6099'],
     title: {
         text:''
     },
@@ -35,11 +36,11 @@ const options = {
     }]
   }
 
-const LineChart = () => {
+const LineChart = ({title}) => {
     return (
         <div className="chart-container">
             <div className="chart-title">
-                Flights from POA to BSB
+                {title}
                 <FontAwesomeIcon icon={faTimes} id='button-close'/>
             </div>
             <HighChartsReact
