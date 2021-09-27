@@ -10,7 +10,10 @@ import './chartEditor.css'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
-function ChartEditor({ onClose = () => { } }) {
+function ChartEditor({ 
+    onClose = () => { }, 
+    onSave = () => {}}
+) {
 
     // Chart data
     const [title, setTitle] = useState("");
@@ -22,7 +25,8 @@ function ChartEditor({ onClose = () => { } }) {
     //const [chartData, setChartData] = useState([])
 
     const { data, status } = useQuery('get-info', () => axios.get(`${API_URL}flights/info`))
-    console.log(data)
+    
+    //const { data, status } = useQuery('get-info', () => axios.get(`${API_URL}flights/info`))
 
     return (
         <div className="modal">
@@ -111,7 +115,11 @@ function ChartEditor({ onClose = () => { } }) {
                             {index === 'Select Value' ? (
                                 <p className='alert-index'>Please select a valid index</p>
                             ) : null}
-                            <button className='button-submit' type="submit">Create chart</button>
+                            <button
+                                className='button-submit'
+                                type="submit"
+                                onClick={() => onSave}
+                            >Create chart</button>
                         </form>
                     </>)}
             </div>

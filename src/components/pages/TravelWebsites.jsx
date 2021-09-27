@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 import { useQuery } from 'react-query';
 import axios from 'axios';
 
@@ -14,10 +15,16 @@ const URL = `https://analytics-api-325214.rj.r.appspot.com/websites/info`
 
 function TravelWebsites() {
 
-    const { data, status } = useQuery('chart-data', () => axios.get(URL));
+    //const { data, status } = useQuery('chart-data', () => axios.get(URL));
 
+    const [chartData, setChartData] = useState([]);
 
-    /*const options = {
+    useEffect(() => {
+        axios.get(URL)
+            .then(res => setChartData(res.data))
+    }, [URL])
+
+    const options = {
         chart: {
             type: 'line',
             reflow: true,
@@ -30,7 +37,7 @@ function TravelWebsites() {
             enabled: true
         },
         xAxis: {
-            categories: data["Month"],
+            categories: chartData["Month"],
             lineColor: 'transparent',
             tickLength: 0
         },
@@ -42,32 +49,31 @@ function TravelWebsites() {
         series: [
             {
                 name: 'CVC',
-                data: data['CVC']
+                data: chartData['CVC']
             },
             {
                 name: 'Melhores Destinos',
-                data: data['Melhores Destinos']
+                data: chartData['Melhores Destinos']
             },
             {
                 name: 'Passagens Imperdíveis',
-                data: data['Passagens Imperdíveis']
+                data: chartData['Passagens Imperdíveis']
             },
             {
                 name: 'Submarino Viagens',
-                data: data['Submarino Viagens']
+                data: chartData['Submarino Viagens']
             },
             {
                 name: 'Decolar.com',
-                data: data['Decolar.com']
+                data: chartData['Decolar.com']
             },
             {
                 name: 'ViajaNet',
-                data: data['ViajaNet']
+                data: chartData['ViajaNet']
             }
         ]
 
     }
-*/
     return (
         <div className="p-container">
             <div className="chart-card">
@@ -75,10 +81,10 @@ function TravelWebsites() {
                     Traffic on Travel-related Websites
                 </div>
                 <div className="chart-wrapper">
-                    {(status === 'loading')
-                        ? (<Spinner />)
-                        : (data.Month)
-                    }
+                    <HighChartsReact
+                        highcharts={Highcharts}
+                        options={options}
+                    />
                 </div>
             </div>
         </div>

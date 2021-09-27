@@ -1,26 +1,44 @@
 import './flights.css'
 import React, { useState } from 'react'
+import { useEffect } from 'react';
 import styled from 'styled-components'
 import ChartEditor from '../charts/ChartEditor';
+import LineChart from '../charts/LineChart'
 
 function Flights() {
 
     const [showEditor, setShowEditor] = useState(false);
-    const [charts, setCharts] = useState(getDefault);
+    const [charts, setCharts] = useState([]);
+    const [chartId, setChartId] = useState("")
+
+    const getChartId = () => {
+        return new Date().getTime().toString(16)
+    }
 
     useEffect(() => {
-      localStorage.setItem('saved-charts', JSON.stringify(charts));
+        localStorage.setItem('saved-charts', JSON.stringify(charts));
     }, [charts]);
+
+    console.log(chartId)
 
     return (
         <div className="flights-container">
+            <LineChart />
+            <LineChart />
+            <LineChart />
 
-            <Button onClick={() => setShowEditor(true)}> + </Button>
-
+            <Button
+                onClick={() => setShowEditor(true)}
+                chartId={() => setChartId(new Date().getTime().toString(16))}
+            >
+                +
+            </Button>
+           
             {showEditor &&
-                <ChartEditor onClose={() => setShowEditor(false)} />
+                <ChartEditor
+                    onClose={() => setShowEditor(false)}
+                />
             }
-
         </div>
     )
 }

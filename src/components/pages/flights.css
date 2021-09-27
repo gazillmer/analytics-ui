@@ -3,6 +3,7 @@
 }
 
 .flights-container{
+    padding: 20px;
     position: relative;
     width: calc(100% - 275px);
     display: grid;

@@ -11,7 +11,7 @@ const options = {
     chart: {
         type: 'areaspline',
         reflow: true,
-        height: 300
+        height: 280
     },
     title: {
         text:''
