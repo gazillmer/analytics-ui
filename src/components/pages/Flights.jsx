@@ -1,11 +1,11 @@
-import './flights.css'
 import React, { useState } from 'react'
 import { useEffect } from 'react';
 import styled from 'styled-components'
+
 import ChartEditor from '../charts/ChartEditor';
-import {initialCharts} from "../../services/data/initialCharts";
+import { initialCharts } from "../../services/data/initialCharts";
 import ChartManager from "../charts/ChartManager/ChartManager";
-import {Requests} from "../../services/axios/requests";
+import { Requests } from "../../services/axios/requests";
 
 function Flights() {
 
@@ -14,7 +14,7 @@ function Flights() {
     const [chartId, setChartId] = useState("")
 
     useEffect(() => {
-       const storageData = localStorage.getItem('saved-charts');
+        const storageData = localStorage.getItem('saved-charts');
         setCharts(JSON.parse(storageData));
     }, []);
 
@@ -31,11 +31,11 @@ function Flights() {
     }
 
     return (
-        <div className="flights-container">
+        <FlightsContainer>
             {
                 charts.map(chart => (
-                        <ChartManager {...chart}/>
-                    )
+                    <ChartManager {...chart} />
+                )
                 )
             }
 
@@ -45,14 +45,14 @@ function Flights() {
             >
                 +
             </Button>
-           
+
             {showEditor &&
                 <ChartEditor
                     onAddChart={handleNewChart}
                     onClose={() => setShowEditor(false)}
                 />
             }
-        </div>
+        </FlightsContainer>
     )
 }
 
@@ -83,5 +83,15 @@ const Button = styled.button`
         background-color: rgb(55, 41, 105);
     }
 `
+
+const FlightsContainer = styled.div`
+    padding: 20px;
+    position: relative;
+    width: calc(100% - 275px);
+    display: grid;
+    grid-gap: 20px;
+    grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
+`
+
 
 export default Flights

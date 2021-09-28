@@ -1,8 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import Highcharts from 'highcharts'
 import HighChartsReact from 'highcharts-react-official'
-import './lineChart.css'
-
 
 const options = {
     chart: {
