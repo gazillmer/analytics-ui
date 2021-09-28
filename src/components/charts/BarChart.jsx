@@ -32,10 +32,7 @@ const options = {
             borderWidth: 0
         }
     },
-    series: [{
-        name: 'Flights',
-        data: []
-    }]
+    series: []
 }
 
 const BarChart = ({ series, categories }) => {

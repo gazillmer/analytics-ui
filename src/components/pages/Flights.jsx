@@ -21,6 +21,7 @@ function Flights() {
     useEffect(() => {
         localStorage.setItem('saved-charts', JSON.stringify(charts));
     }, [charts]);
+    
 
     const handleNewChart = async (data) => {
         const handleData = async () => {
@@ -30,16 +31,20 @@ function Flights() {
         handleData();
     }
 
+    const deleteChart = () => {
+        console.log('delete')
+    }
+
     return (
         <FlightsContainer>
-            {charts.map(chart => (
-                <ChartManager {...chart} />
-            ))
+            {charts.length > 0 && (
+                charts.map(chart => (
+                    <ChartManager {...chart} />
+                )))
             }
-
             <Button
                 onClick={() => setShowEditor(true)}
-                data-tip 
+                data-tip
                 data-for="create"
             > + </Button>
             <ReactTooltip
@@ -78,7 +83,7 @@ const Button = styled.button`
     cursor: pointer;
 
     color: white;
-    background-color: rgb(98, 41, 189);
+    background-color: #5a6099;
 
     -webkit-box-shadow: 0px 0px 11px -1px rgba(0,0,0,0.5); 
     box-shadow: 0px 0px 5px -1px rgba(0,0,0,0.5);
@@ -95,5 +100,4 @@ const FlightsContainer = styled.div`
     grid-gap: 20px;
     grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
 `
-
 export default Flights

@@ -23,7 +23,10 @@ const Title = styled.div`
     position: relative;
     background-color: #FFFFFF;
 `
-const CloseButton = styled.div`
+const CloseButton = styled.button`
+    outline: none;
+    border: none;
+    background-color: white;
     cursor: pointer;
     position: absolute;
     right: 0;
@@ -34,15 +37,17 @@ const CloseButton = styled.div`
         color: black
     }
 `
-
 const ChartManager = ({ name, series, categories, type }) => {
-
     return (
         <ChartContainer>
             <Title>
                 {name}
-                <CloseButton data-tip data-for="ttp">
-                    <FontAwesomeIcon icon={faTimes} />
+                <CloseButton
+                    data-tip
+                    data-for="ttp">
+                    <FontAwesomeIcon
+                        icon={faTimes}
+                    />
                 </CloseButton>
                 <ReactTooltip
                     backgroundColor="#5a6099"

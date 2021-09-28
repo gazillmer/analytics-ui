@@ -8,15 +8,7 @@ const options = {
         reflow: true,
         height: 280
     },
-    colors: {
-        color: {
-            linearGradient: { x1: 0, x2: 0, y1: 0, y2: 1 },
-            stops: [
-                [0, '#003399'],
-                [1, '#3366AA']
-            ]
-        }
-    },
+    colors: ['#5a6099'],
     title: {
         text:''
     },
@@ -33,10 +25,7 @@ const options = {
             text: 'Number of Flights'
         },
     },
-    series: [{
-        name: "Flights",
-        data: [10, 20, 30, 25, 35, 20]
-    }]
+    series: []
 }
 
 const LineChart = ({series, categories}) => {

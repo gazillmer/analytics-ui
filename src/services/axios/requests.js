@@ -8,21 +8,42 @@ export class Requests {
     }
 
     async getGraphDataInfo(filters) {
-        return {
-            name: filters?.title || 'Gráfico',
-            series: [100, 120, 80, 20, 100, 200],
-            categories: ['01-2010','02-2010','03-2010','07-2010','08-2010','06-2010'],
-            type: filters?.chartType
-        };
-        /*const response = await APIRequest.get('flights/line', params=filters);
-        console.log(response)
 
-        return {
-            name: filters?.title || 'Gráfico',
-            series: [10, 30, 70, 50, 30, 10],
-            categories: ['01-2010', '02-2010', '03-2010', '07-2010', '08-2010', '06-2010'],
-            type: filters?.chartType
-        };*/
+        let endpoint = '';
+
+        switch (filters.chartType) {
+            case 'line':
+                endpoint = 'line';
+                break;
+
+            case 'bar':
+                endpoint = 'bar';
+                break;
+
+            case 'heatmap':
+                endpoint = 'heatmap';
+                break;
+
+            default:
+                endpoint = 'line';
+        }
+
+        const response = await APIRequest.post(`flights/${endpoint}`, filters);
+
+        if (endpoint === 'heatmap') {
+            return {
+                name: filters?.title || 'Untitled Chart',
+                categories: response.data.output.indexes,
+                series: response.data.output.values,
+                type: filters?.chartType
+            }
+        } else {
+            return {
+                name: filters?.title || 'Untitled Chart',
+                series: response.data.output.values,
+                type: filters?.chartType
+            };
+        }
+
     }
-
 }
