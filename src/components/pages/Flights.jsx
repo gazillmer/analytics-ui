@@ -3,29 +3,41 @@ import React, { useState } from 'react'
 import { useEffect } from 'react';
 import styled from 'styled-components'
 import ChartEditor from '../charts/ChartEditor';
-import LineChart from '../charts/LineChart'
+import {initialCharts} from "../../services/data/initialCharts";
+import ChartManager from "../charts/ChartManager/ChartManager";
+import {Requests} from "../../services/axios/requests";
 
 function Flights() {
 
     const [showEditor, setShowEditor] = useState(false);
-    const [charts, setCharts] = useState([]);
+    const [charts, setCharts] = useState(initialCharts);
     const [chartId, setChartId] = useState("")
 
-    const getChartId = () => {
-        return new Date().getTime().toString(16)
-    }
+    useEffect(() => {
+       const storageData = localStorage.getItem('saved-charts');
+        setCharts(JSON.parse(storageData));
+    }, []);
 
     useEffect(() => {
         localStorage.setItem('saved-charts', JSON.stringify(charts));
     }, [charts]);
 
-    console.log(chartId)
+    const handleNewChart = async (data) => {
+        const handleData = async () => {
+            const apiReturn = await new Requests().getGraphDataInfo(data);
+            setCharts([...charts, apiReturn])
+        }
+        handleData();
+    }
 
     return (
         <div className="flights-container">
-            <LineChart title="Flights from POA to GRU"/>
-            <LineChart title="Flights from GRU to GIG"/>
-            <LineChart title="Flights from POA to EZE"/>
+            {
+                charts.map(chart => (
+                        <ChartManager {...chart}/>
+                    )
+                )
+            }
 
             <Button
                 onClick={() => setShowEditor(true)}
@@ -36,8 +48,8 @@ function Flights() {
            
             {showEditor &&
                 <ChartEditor
+                    onAddChart={handleNewChart}
                     onClose={() => setShowEditor(false)}
-                    endpoint='flights'
                 />
             }
         </div>

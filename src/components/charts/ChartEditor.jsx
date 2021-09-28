@@ -1,46 +1,47 @@
-import React, { useState } from 'react'
-import { useQuery } from 'react-query';
-import { API_URL } from '../../constants';
-import axios from 'axios';
+import React, { useState, useEffect } from 'react'
 import Loader from 'react-loader-spinner';
-import Dropdown from 'react-dropdown'
 
 import './chartEditor.css'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faTimes } from '@fortawesome/free-solid-svg-icons';
+import {Requests} from "../../services/axios/requests";
 
 function ChartEditor({ 
-    onClose = () => { }, 
-    onSave = () => {},
-    endpoint
+    onClose = () => {},
+    onAddChart = () => {}
 }) {
-
-    // Chart data
-    const [title, setTitle] = useState("");
     const [chartType, setChartType] = useState("");
-    const [fromYear, setFromYear] = useState("2016");
-    const [toYear, setToYear] = useState('2021');
-    const [index, setIndex] = useState('');
-    const [filters, setFilters] = useState('');
-    //const [chartData, setChartData] = useState([])
-    //console.log(endpoint)
+    const [formData, setFormData] = useState({});
+    const [loading, setLoading] = useState(true);
+    const [chartData, setChartData] = useState(null);
 
-    const { data, status, error} = useQuery('get-info', () => axios.get(`${API_URL}${endpoint}/info`))
+    useEffect(() => {
+        const getData = async () => {
+            setLoading(true);
+            const data = await new Requests().getModalData();
+            setChartData(data);
+            setLoading(false);
+        }
 
-    if(error) return (
-        <div className="modal">
-            <div className="modal-container-error">
-                <h3>Woops, error fetching the data :(</h3>
-                <p>the dev sucks</p>
-            </div>
-        </div>
-    )
+        getData();
+    }, []);
+
+    const handleFieldChange = (data, fieldName) => {
+            setFormData({
+                ...formData,
+                [fieldName]: data.target.value
+            });
+    }
+
+    const handleSaveForm = () => {
+        onAddChart(formData);
+    }
 
     return (
         <div className="modal">
             <div className="modal-container">
-                {status === 'loading' ?
+                {loading ?
                     (<div className="spinner">
                         <Loader type={"TailSpin"} color={"#2f324e"} />
                     </div>) :
@@ -52,26 +53,25 @@ function ChartEditor({
                             </button>
                         </div>
                         <hr />
-                        <form className='form-content'>
                             <label>
                                 Name
                                 <input
                                     type="text"
                                     name="name"
                                     placeholder="Add chart title"
-                                    value={title}
-                                    onChange={({ target: { value } }) => setTitle(value)}
+                                    value={formData?.title}
+                                    onChange={e => handleFieldChange(e, 'title')}
                                 />
                             </label>
                             <label>
                                 Calculate by
                                 <select
-                                    value={index}
+                                    value={formData?.index}
                                     name="index"
-                                    onChange={({ target: { value } }) => setIndex(value)}
+                                    onChange={e => handleFieldChange(e, 'index')}
                                 >
                                     <option value={""}>Select value</option>
-                                    {data.data['indexes'].map(value => (
+                                    {chartData['indexes'].map(value => (
                                         <option key={value} value={value}>{value}</option>
                                     ))
                                     }
@@ -83,8 +83,8 @@ function ChartEditor({
                                     type="date"
                                     name="fromYear"
                                     placeholder="From"
-                                    value={fromYear}
-                                    onChange={({ target: { value } }) => setFromYear(value)}
+                                    value={formData?.fromYear}
+                                    onChange={e => handleFieldChange(e, 'fromYear')}
                                 />
                             </label>
                             <label>
@@ -93,16 +93,16 @@ function ChartEditor({
                                     type="date"
                                     name="toYear"
                                     placeholder="To"
-                                    value={toYear}
-                                    onChange={({ target: { value } }) => setToYear(value)}
+                                    value={formData?.toYear}
+                                    onChange={e => handleFieldChange(e, 'toYear')}
                                 />
                             </label>
                             <label>
                                 Chart Type
                                 <select
-                                    value={chartType}
+                                    value={formData?.chartType}
                                     name="chart-type"
-                                    onChange={({ target: { value } }) => setChartType(value)}
+                                    onChange={e => handleFieldChange(e, 'chartType')}
                                 >
                                     <option value={""}>Please choose an option</option>
                                     <option value="line">Line</option>
@@ -113,23 +113,18 @@ function ChartEditor({
                             <label>
                                 Filters
                                 <select
-                                    value={filters}
+                                    value={formData?.filters}
                                     name="filters"
-                                    onChange={({ target: { value } }) => setFilters(value)}
+                                    onChange={e => handleFieldChange(e, 'filters')}
                                 >
 
                                 </select>
                             </label>
 
-                            {index === 'Select Value' ? (
-                                <p className='alert-index'>Please select a valid index</p>
-                            ) : null}
                             <button
                                 className='button-submit'
-                                type="submit"
-                                onClick={() => onSave}
+                                onClick={handleSaveForm}
                             >Create chart</button>
-                        </form>
                     </>)}
             </div>
         </div>

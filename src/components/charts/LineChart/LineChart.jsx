@@ -1,11 +1,8 @@
-import React from 'react'
+import React, {useEffect, useState} from 'react'
 import Highcharts from 'highcharts'
 import HighChartsReact from 'highcharts-react-official'
-
 import './lineChart.css'
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
 
 const options = {
     chart: {
@@ -36,18 +33,29 @@ const options = {
     }]
   }
 
-const LineChart = ({title}) => {
+const LineChart = ({series, categories}) => {
+    const [chartData, setChartData] = useState(options);
+
+    useEffect(() => {
+        setChartData({
+            ...chartData,
+            series: [{
+                name: "Flights",
+                data: series
+            }],
+            xAxis: {
+                categories: categories,
+                lineColor: 'transparent',
+                tickLength: 0
+            },
+        })
+    }, []);
+
     return (
-        <div className="chart-container">
-            <div className="chart-title">
-                {title}
-                <FontAwesomeIcon icon={faTimes} id='button-close'/>
-            </div>
-            <HighChartsReact
-                highcharts={Highcharts}
-                options={options}
-            />
-        </div>
+        <HighChartsReact
+            highcharts={Highcharts}
+            options={chartData}
+        />
     )
 }
 
