@@ -2,7 +2,8 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes } from "@fortawesome/free-solid-svg-icons";
 import React from "react";
 import ReactTooltip from "react-tooltip";
-import LineChart from "../LineChart/LineChart";
+import LineChart from "../LineChart";
+import BarChart from "../BarChart";
 import styled from "styled-components";
 
 const ChartContainer = styled.div`

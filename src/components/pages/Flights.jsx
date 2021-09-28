@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import { useEffect } from 'react';
 import styled from 'styled-components'
 
+import ReactTooltip from "react-tooltip";
 import ChartEditor from '../charts/ChartEditor';
 import { initialCharts } from "../../services/data/initialCharts";
 import ChartManager from "../charts/ChartManager/ChartManager";
@@ -11,7 +12,6 @@ function Flights() {
 
     const [showEditor, setShowEditor] = useState(false);
     const [charts, setCharts] = useState(initialCharts);
-    const [chartId, setChartId] = useState("")
 
     useEffect(() => {
         const storageData = localStorage.getItem('saved-charts');
@@ -32,19 +32,23 @@ function Flights() {
 
     return (
         <FlightsContainer>
-            {
-                charts.map(chart => (
-                    <ChartManager {...chart} />
-                )
-                )
+            {charts.map(chart => (
+                <ChartManager {...chart} />
+            ))
             }
 
             <Button
                 onClick={() => setShowEditor(true)}
-                chartId={() => setChartId(new Date().getTime().toString(16))}
+                data-tip 
+                data-for="create"
+            > + </Button>
+            <ReactTooltip
+                backgroundColor="#5a6099"
+                id="create"
+                data-offset="{'top': 10, 'left': 10}"
             >
-                +
-            </Button>
+                Create new chart
+            </ReactTooltip>
 
             {showEditor &&
                 <ChartEditor
@@ -83,7 +87,6 @@ const Button = styled.button`
         background-color: rgb(55, 41, 105);
     }
 `
-
 const FlightsContainer = styled.div`
     padding: 20px;
     position: relative;
@@ -92,6 +95,5 @@ const FlightsContainer = styled.div`
     grid-gap: 20px;
     grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));
 `
-
 
 export default Flights
