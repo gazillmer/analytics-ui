@@ -9,11 +9,6 @@
 
 /* Modal */
 
-fieldset {
-    border: none;
-    background-color: #fafafa;
-}
-
 .modal {
     width: 80%;
     height: 100%;
@@ -79,6 +74,10 @@ fieldset {
 
 .modal-button-close:hover {
    color: grey;
+}
+
+#modal-breakline {
+    margin-bottom: 20px;
 }
 
 .form-content {

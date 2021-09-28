@@ -52,7 +52,8 @@ function ChartEditor({
                                 <FontAwesomeIcon icon={faTimes} />
                             </button>
                         </div>
-                        <hr />
+                        <hr id="modal-breakline"/>
+                        
                             <label>
                                 Name
                                 <input
