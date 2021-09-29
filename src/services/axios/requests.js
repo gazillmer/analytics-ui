@@ -33,14 +33,15 @@ export class Requests {
         if (endpoint === 'heatmap') {
             return {
                 name: filters?.title || 'Untitled Chart',
-                categories: response.data.output.indexes,
-                series: response.data.output.values,
+                indexes: response.data.output.indexes,
+                values: response.data.output.values,
                 type: filters?.chartType
             }
         } else {
             return {
                 name: filters?.title || 'Untitled Chart',
-                series: response.data.output.values,
+                values: response.data.output.values,
+                indexes: response.data.output.indexes,
                 type: filters?.chartType
             };
         }

@@ -35,7 +35,7 @@ const options = {
     series: []
 }
 
-const BarChart = ({ series, categories }) => {
+const BarChart = ({ indexes, values}) => {
     const [chartData, setChartData] = useState(options);
 
     useEffect(() => {
@@ -43,10 +43,10 @@ const BarChart = ({ series, categories }) => {
             ...chartData,
             series: [{
                 name: "Flights",
-                data: series
+                data: values
             }],
             xAxis: {
-                categories: categories,
+                categories: indexes,
                 crosshair: true,
                 lineColor: 'transparent',
                 tickLength: 0

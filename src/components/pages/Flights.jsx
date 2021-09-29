@@ -1,27 +1,51 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react';
 import styled from 'styled-components'
+//import getDefaultCharts  from "../../services/data/defaultCharts";
 
 import ReactTooltip from "react-tooltip";
 import ChartEditor from '../charts/ChartEditor';
-import { initialCharts } from "../../services/data/initialCharts";
+//import { initialCharts } from "../../services/data/initialCharts";
 import ChartManager from "../charts/ChartManager/ChartManager";
 import { Requests } from "../../services/axios/requests";
+
+const getDefaultCharts = () => {
+    console.log("in getDefaultCharts")
+    const savedCharts = localStorage.getItem("saved-charts");
+
+    if (savedCharts) {
+        console.log("there are saved charts")
+        try {
+            const fromStorage = JSON.parse(savedCharts);
+            return fromStorage;
+        } catch { }
+    }
+    console.log("no charts saved, return default")
+    return [
+        {
+            name: 'Example Chart 1',
+            values: [1, 2, 3, 4, 5, 6],
+            indexes: ['01-2010', '02-2010', '03-2010', '04-2010', '05-2010', '06-2010'],
+            type: 'line',
+        },
+        {
+            name: 'Example Chart 2',
+            values: [10, 20, 30, 25, 35, 20],
+            indexes: ['01-2010', '02-2010', '03-2010', '04-2010', '05-2010', '06-2010'],
+            type: 'line',
+        },
+    ]
+}
 
 function Flights() {
 
     const [showEditor, setShowEditor] = useState(false);
-    const [charts, setCharts] = useState(initialCharts);
-
-    useEffect(() => {
-        const storageData = localStorage.getItem('saved-charts');
-        setCharts(JSON.parse(storageData));
-    }, []);
+    const [charts, setCharts] = useState(getDefaultCharts);
 
     useEffect(() => {
         localStorage.setItem('saved-charts', JSON.stringify(charts));
     }, [charts]);
-    
+
 
     const handleNewChart = async (data) => {
         const handleData = async () => {
@@ -31,16 +55,17 @@ function Flights() {
         handleData();
     }
 
-    const deleteChart = () => {
-        console.log('delete')
-    }
-
     return (
         <FlightsContainer>
-            {charts.length > 0 && (
+            {
+                charts.map(chart => (
+                    console.log(chart)
+                ))
+            }
+            {
                 charts.map(chart => (
                     <ChartManager {...chart} />
-                )))
+                ))
             }
             <Button
                 onClick={() => setShowEditor(true)}

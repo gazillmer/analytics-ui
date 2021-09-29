@@ -16,7 +16,7 @@ const options = {
         enabled: false
     },
     xAxis: {
-        categories: ['01-2010','02-2010','03-2010','07-2010','08-2010','06-2010'],
+        categories: [],
         lineColor: 'transparent',
         tickLength: 0
     },
@@ -28,7 +28,7 @@ const options = {
     series: []
 }
 
-const LineChart = ({series, categories}) => {
+const LineChart = ({indexes, values}) => {
     const [chartData, setChartData] = useState(options);
 
     useEffect(() => {
@@ -36,10 +36,10 @@ const LineChart = ({series, categories}) => {
             ...chartData,
             series: [{
                 name: "Flights",
-                data: series
+                data: values
             }],
             xAxis: {
-                categories: categories,
+                categories: indexes,
                 lineColor: 'transparent',
                 tickLength: 0
             },
