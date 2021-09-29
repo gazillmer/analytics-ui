@@ -28,7 +28,7 @@ const options = {
     series: []
 }
 
-const LineChart = ({indexes, values}) => {
+const LineChart = ({indexes, values, yaxis}) => {
     const [chartData, setChartData] = useState(options);
 
     useEffect(() => {
@@ -42,6 +42,11 @@ const LineChart = ({indexes, values}) => {
                 categories: indexes,
                 lineColor: 'transparent',
                 tickLength: 0
+            },
+            yAxis: {
+                title: {
+                    text: yaxis,
+                },
             },
         })
     }, []);

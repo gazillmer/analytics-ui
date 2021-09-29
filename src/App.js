@@ -10,6 +10,7 @@ import styled from 'styled-components';
 // Style App structure
 const Container = styled.div`
   display: flex;
+  background-color: #fafafa;
 `
 
 function App() { 

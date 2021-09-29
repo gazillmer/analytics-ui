@@ -40,6 +40,7 @@ export class Requests {
         } else {
             return {
                 name: filters?.title || 'Untitled Chart',
+                yaxis: filters?.index,
                 values: response.data.output.values,
                 indexes: response.data.output.indexes,
                 type: filters?.chartType

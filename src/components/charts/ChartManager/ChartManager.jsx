@@ -37,7 +37,7 @@ const CloseButton = styled.button`
         color: black
     }
 `
-const ChartManager = ({ name, indexes, values, type }) => {
+const ChartManager = ({ name, indexes, values, type, yaxis }) => {
     return (
         <ChartContainer>
             <Title>
@@ -61,11 +61,11 @@ const ChartManager = ({ name, indexes, values, type }) => {
             {(() => {
                 switch (type) {
                     case 'line':
-                        return (<LineChart values={values} indexes={indexes}  />)
+                        return (<LineChart values={values} indexes={indexes} yaxis={yaxis} />)
                 }
                 switch (type) {
                     case 'bar':
-                        return (<BarChart values={values} indexes={indexes} />)
+                        return (<BarChart values={values} indexes={indexes} yaxis={yaxis} />)
                 }
                 /* switch (type) {
                     case 'heatmap':

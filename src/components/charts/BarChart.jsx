@@ -35,7 +35,7 @@ const options = {
     series: []
 }
 
-const BarChart = ({ indexes, values}) => {
+const BarChart = ({ indexes, values, yaxis}) => {
     const [chartData, setChartData] = useState(options);
 
     useEffect(() => {
@@ -50,6 +50,11 @@ const BarChart = ({ indexes, values}) => {
                 crosshair: true,
                 lineColor: 'transparent',
                 tickLength: 0
+            },
+            yAxis: {
+                title: {
+                    text: yaxis,
+                },
             },
         })
     }, []);
