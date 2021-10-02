@@ -6,6 +6,7 @@ import About from './components/pages/About';
 import TravelWebsites from './components/pages/TravelWebsites';
 import Flights from './components/pages/Flights';
 import styled from 'styled-components';
+import Tweets from './components/pages/Tweets';
 
 // Style App structure
 const Container = styled.div`
@@ -19,7 +20,7 @@ function App() {
       <Router>
         <Sidebar />
         <Switch>
-          <Route path = '/' exact component = {Flights} />
+          <Route path = '/tweets' exact component = {Tweets} />
           <Route path = '/about' component = {About} />
           <Route path = '/flights' component = {Flights} />
           <Route path = '/websites' component = {TravelWebsites} />

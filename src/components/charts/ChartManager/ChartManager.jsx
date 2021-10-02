@@ -33,18 +33,22 @@ const CloseButton = styled.button`
     top: 0;
     color: gray;
 
-    &hover {
-        color: black
+    &:hover {
+        color: black;
+        background-color: white
     }
 `
-const ChartManager = ({ name, indexes, values, type, yaxis }) => {
+
+const ChartManager = ({ name, indexes, values, type, yaxis, onDelete}) => {
     return (
         <ChartContainer>
             <Title>
                 {name}
                 <CloseButton
                     data-tip
-                    data-for="ttp">
+                    data-for="ttp"
+                    onClick={onDelete}
+                >
                     <FontAwesomeIcon
                         icon={faTimes}
                     />
@@ -67,10 +71,6 @@ const ChartManager = ({ name, indexes, values, type, yaxis }) => {
                     case 'bar':
                         return (<BarChart values={values} indexes={indexes} yaxis={yaxis} />)
                 }
-                /* switch (type) {
-                    case 'heatmap':
-                        return (<HeatmapChart series={values} categories={indexes} />)
-                } */
             })()
             }
         </ChartContainer>

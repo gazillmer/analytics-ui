@@ -10,7 +10,7 @@ import ChartManager from "../charts/ChartManager/ChartManager";
 import { Requests } from "../../services/axios/requests";
 
 const getDefaultCharts = () => {
-    const savedCharts = localStorage.getItem("saved-charts");
+    const savedCharts = localStorage.getItem("tweet-charts");
 
     if (savedCharts) {
         try {
@@ -34,7 +34,7 @@ const getDefaultCharts = () => {
     ]
 }
 
-function Flights() {
+function Tweets() {
 
     const [showEditor, setShowEditor] = useState(false);
     const [charts, setCharts] = useState(getDefaultCharts);
@@ -83,7 +83,7 @@ function Flights() {
     )
 }
 
-export default Flights
+export default Tweets
 
 const Button = styled.button`
     font-size: 30px;

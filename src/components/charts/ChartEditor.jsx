@@ -2,9 +2,8 @@ import React, { useState, useEffect } from 'react'
 import Loader from 'react-loader-spinner';
 import styled from 'styled-components';
 
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faTimes } from '@fortawesome/free-solid-svg-icons';
 import { Requests } from "../../services/axios/requests";
+import { Twitter, Flight, Close } from '@material-ui/icons';
 
 function ChartEditor({
     onClose = () => { },
@@ -15,6 +14,7 @@ function ChartEditor({
     const [loading, setLoading] = useState(true);
     const [chartData, setChartData] = useState(null);
     const [filters, setFilters] = useState({});
+    const [flights, setFlights] = useState(true);
 
     useEffect(() => {
         const getData = async () => {
@@ -48,103 +48,230 @@ function ChartEditor({
                     <ModalHeader>
                         <ModalTitle>Create New Chart</ModalTitle>
                         <CloseButton onClick={onClose}>
-                            <FontAwesomeIcon icon={faTimes} />
+                            <Close />
                         </CloseButton>
                     </ModalHeader>
                     <ModalContent>
                         <hr style={{ marginBottom: "20px", color: "lightgray" }} />
-                        <label>{/* Chart Title */}
-                            Name
-                            <Input
-                                type="text"
-                                name="name"
-                                placeholder="Add chart title"
-                                value={formData?.title}
-                                onChange={e => handleFieldChange(e, 'title')}
-                            />
-                        </label>
-                        <label>{/* Index */}
-                            Calculate by
-                            <Select
-                                value={formData?.index}
-                                name="index"
-                                onChange={e => handleFieldChange(e, 'index')}
-                            >
-                                <option value={""}>Select value</option>
-                                {chartData['indexes'].map(value => (
-                                    <option key={value} value={value}>{value}</option>
-                                ))
-                                }
-                            </Select>
-                        </label>
-                        <label>{/* Starting Date */}
-                            Set starting date
-                            <Input
-                                type="date"
-                                name="startDate"
-                                placeholder="From"
-                                value={formData?.startDate}
-                                onChange={e => handleFieldChange(e, 'startDate')}
-                            />
-                        </label>
-                        <label>{/* Ending Date */}
-                            Set ending date
-                            <Input
-                                type="date"
-                                name="endDate"
-                                placeholder="To"
-                                value={formData?.endDate}
-                                onChange={e => handleFieldChange(e, 'endDate')}
-                            />
-                        </label>
-                        <label>{/* Chart Type*/}
-                            Chart Type
-                            <Select
-                                value={formData?.chartType}
-                                name="chart-type"
-                                onChange={e => handleFieldChange(e, 'chartType')}
-                            >
-                                <option value={""}>Please choose an option</option>
-                                <option value="line">Line</option>
-                                <option value="bar">Bar</option>
-                                <option value="heatmap">Heatmap</option>
-                            </Select>
-                        </label>
-                        <Filters>
-                            <label style={{ display: "inline" }}>{/* Filters */}
-                                Filters
-                                <Dropdown
-                                    placeholder="Select an option"
-                                    onChange={e => handleFieldChange(e, 'filters')}
-                                    value={formData?.filters}
-                                >
-                                    <option value={""}>Not available yet</option>
-                                    {Object.keys(chartData['filters']).map((filter) => {
-                                        return (
-                                            <option
-                                                key={filter}
-                                                value={filter}
-                                                onClick={() =>
-                                                    setFilters((existing) => ({
-                                                        ...existing,
-                                                        [filter]: [],
-                                                    }))
-                                                }>
-                                                {filter}
-                                            </option>
-                                        )
-                                    })
-                                    }
-                                </Dropdown>
-                            </label>
-                        </Filters>
+                        <ChartSource>
+                            Source
+                            {flights ? (
+                                <>
+                                    <TwitterButtonInactive onClick={() => setFlights(false)}>
+                                        <Twitter style={{ color: "#1DA1F2" }} />
+                                        <p>Twitter</p>
+                                    </TwitterButtonInactive>
+                                    <FlightsButton onClick={() => setFlights(true)}>
+                                        <Flight style={{ color: "white" }} />
+                                        <p>Flights</p>
+                                    </FlightsButton>
+
+                                </>
+                            ) : (
+                                <>
+                                    <TwitterButton onClick={() => setFlights(false)}>
+                                        <Twitter style={{ color: "white" }} />
+                                        <p>Twitter</p>
+                                    </TwitterButton>
+                                    <FlightsButtonInactive onClick={() => setFlights(true)}>
+                                        <Flight style={{ color: "#026b02" }} />
+                                        <p>Flights</p>
+                                    </FlightsButtonInactive>
+                                </>)
+                            }
+                        </ChartSource>
+                        {flights ? (
+                            //Flights
+                            <FlightsSection>
+                                <label>{/* Chart Title */}
+                                    Title
+                                    <Input
+                                        type="text"
+                                        name="title"
+                                        placeholder="Add chart title"
+                                        value={formData?.title}
+                                        onChange={e => handleFieldChange(e, 'title')}
+                                    />
+                                </label>
+                                <label>{/* Index */}
+                                    Calculate by
+                                    <Select
+                                        value={formData?.index}
+                                        name="index"
+                                        onChange={e => handleFieldChange(e, 'index')}
+                                    >
+                                        <option value={""}>Select value</option>
+                                        {chartData['indexes'].map(value => (
+                                            <option key={value} value={value}>{value}</option>
+                                        ))
+                                        }
+                                    </Select>
+                                </label>
+                                <label>{/* Starting Date */}
+                                    Set starting date
+                                    <Input
+                                        type="date"
+                                        name="startDate"
+                                        placeholder="From"
+                                        value={formData?.startDate}
+                                        onChange={e => handleFieldChange(e, 'startDate')}
+                                    />
+                                </label>
+                                <label>{/* Ending Date */}
+                                    Set ending date
+                                    <Input
+                                        type="date"
+                                        name="endDate"
+                                        placeholder="To"
+                                        value={formData?.endDate}
+                                        onChange={e => handleFieldChange(e, 'endDate')}
+                                    />
+                                </label>
+                                <label>{/* Chart Type*/}
+                                    Chart Type
+                                    <Select
+                                        value={formData?.chartType}
+                                        name="chart-type"
+                                        onChange={e => handleFieldChange(e, 'chartType')}
+                                    >
+                                        <option value={""}>Please choose an option</option>
+                                        <option value="line">Line</option>
+                                        <option value="bar">Bar</option>
+                                        <option value="heatmap">Heatmap</option>
+                                    </Select>
+                                </label>
+                                {formData.chartType === 'bar' && (
+                                    <label>{/* Chart Title */}
+                                        Number of values you wish to see
+                                        <Input
+                                            type="number"
+                                            min="5"
+                                            max="15"
+                                            name="values"
+                                            placeholder="Add chart title"
+                                            value={formData?.nValues}
+                                            onChange={e => handleFieldChange(e, 'nValues')}
+                                        />
+                                    </label>
+                                )}
+                                <label>{/* Filters */}
+                                    Filters
+                                    <Dropdown
+                                        placeholder="Select an option"
+                                        onChange={e => handleFieldChange(e, 'filters')}
+                                        value={formData?.filters}
+                                    >
+                                        <option value={""}>Not available yet</option>
+                                        {Object.keys(chartData['filters']).map((filter) => {
+                                            return (
+                                                <option
+                                                    key={filter}
+                                                    value={filter}
+                                                    onClick={() =>
+                                                        setFilters((existing) => ({
+                                                            ...existing,
+                                                            [filter]: [],
+                                                        }))
+
+                                                    }>
+                                                    {filter}
+                                                </option>
+                                            )
+                                        })
+                                        }
+                                    </Dropdown>
+                                </label>
+                            </FlightsSection>
+
+                        ) : (
+                            // Twitter section
+                            <TwitterSection>
+                                <label>{/* Chart Title */}
+                                    Name
+                                    <Input
+                                        type="text"
+                                        name="name"
+                                        placeholder="Add chart title"
+                                        value={formData?.title}
+                                        onChange={e => handleFieldChange(e, 'title')}
+                                    />
+                                </label>
+                                <label>{/* Starting Date */}
+                                    Set starting date
+                                    <Input
+                                        type="date"
+                                        name="startDate"
+                                        placeholder="From"
+                                        value={formData?.startDate}
+                                        onChange={e => handleFieldChange(e, 'startDate')}
+                                    />
+                                </label>
+                                <label>{/* Ending Date */}
+                                    Set ending date
+                                    <Input
+                                        type="date"
+                                        name="endDate"
+                                        placeholder="To"
+                                        value={formData?.endDate}
+                                        onChange={e => handleFieldChange(e, 'endDate')}
+                                    />
+                                </label>
+                                <label>{/* Chart Type*/}
+                                    Chart Type
+                                    <Select
+                                        value={formData?.chartType}
+                                        name="chart-type"
+                                        onChange={e => handleFieldChange(e, 'chartType')}
+                                    >
+                                        <option value={""}>Please choose an option</option>
+                                        <option value="line">Line</option>
+                                        <option value="bar">Bar</option>
+                                        <option value="heatmap">Heatmap</option>
+                                    </Select>
+                                </label>
+                                <Filters>
+                                    <label style={{ display: "inline" }}>{/* Filters */}
+                                        Filters
+                                        <Dropdown
+                                            placeholder="Select an option"
+                                            onChange={e => handleFieldChange(e, 'filters')}
+                                            value={formData?.filters}
+                                        >
+                                            <option value={""}>Not available yet</option>
+                                            {Object.keys(chartData['filters']).map((filter) => {
+                                                return (
+                                                    <option
+                                                        key={filter}
+                                                        value={filter}
+                                                        onClick={() =>
+                                                            setFilters((existing) => ({
+                                                                ...existing,
+                                                                [filter]: [],
+                                                            }))
+                                                        }>
+                                                        {filter}
+                                                    </option>
+                                                )
+                                            })
+                                            }
+                                        </Dropdown>
+                                    </label>
+                                </Filters>
+                            </TwitterSection>
+                        )
+                        }
                         <SubmitButton onClick={handleSaveForm}>Create chart</SubmitButton>
                     </ModalContent>
                 </>)
             }
-        </Modal>
+        </Modal >
     )
 }
+
+export default ChartEditor
+
+
+// Styled Components -------------------------------------
 
 const Modal = styled.div`
     z-index: 100;
@@ -165,6 +292,18 @@ const Modal = styled.div`
 `
 const ModalContent = styled.div`
     overflow: auto;
+`
+const ChartSource = styled.div`
+    display: flex;
+    margin-bottom: 20px;
+    line-height: 40px;
+    vertical-align: center;
+`
+const TwitterSection = styled.div`
+    transition: 0.5s;
+`
+const FlightsSection = styled.div`
+    transition: 0.5s;
 `
 const Spinner = styled.div`
     height: 100%;
@@ -190,8 +329,9 @@ const CloseButton = styled.button`
     right: 0;
     top: 40%;
     cursor: pointer;
+    background-color: #fafafa;
 
-    &hover {
+    &:hover {
         color: grey;
     }
 `
@@ -206,9 +346,10 @@ const SubmitButton = styled.button`
     color: white;
     cursor: pointer;
 
-    &hover {
-    background-color: rgb(67, 70, 102);
-}
+    &:hover {
+        transition: 0.1s;
+        background-color: #5a6099;
+    }
 `
 const Select = styled.select`
     outline: none;
@@ -237,6 +378,63 @@ const Dropdown = styled(Select)`
     margin: 5px 0 15px 15px;
     padding: 12px 10px;
 `
+const TwitterButton = styled.div`
+    background-color: #1DA1F2;
+    height: 30px;
+    width: 100px;
+    border-radius: 10px;
+    display: flex;
+    padding: 5px;
+    align-items: center;
+    margin-left: 15px;
+    color: white;
+    justify-content: space-around;
+    cursor: pointer;
+    font-size: 14px;
+
+    &:hover {
+        background-color: #188fda;
+        transition: 0.1s;
+    }
+`
+const FlightsButton = styled.div`
+    background-color: green;
+    height: 30px;
+    width: 100px;
+    border-radius: 10px;
+    display: flex;
+    padding: 5px;
+    align-items: center;
+    margin-left: 15px;
+    color: white;
+    justify-content: space-around;
+
+    cursor: pointer;
+    font-size: 14px;
+
+    &:hover {
+        background-color: #026b02;
+        transition: 0.1s;
+    }
+`
+const TwitterButtonInactive = styled(TwitterButton)`
+    background-color: #fafafa;
+    color: #1DA1F2;
+
+    &:hover {
+        background-color: #188fda;
+        transition: 0.1s;
+    }
+`
+const FlightsButtonInactive = styled(FlightsButton)`
+    background-color: #fafafa;
+    color: #026b02;
+
+    &:hover {
+        background-color: #026b02;
+        transition: 0.1s;
+    }
+`
 const Filters = styled.div`
     background-color: #e6e6e6;
     border-radius: 10px;
@@ -245,5 +443,3 @@ const Filters = styled.div`
     align-items: center;
     line-height: 30px;
 `
-
-export default ChartEditor

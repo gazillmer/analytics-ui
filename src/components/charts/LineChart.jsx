@@ -35,7 +35,7 @@ const LineChart = ({indexes, values, yaxis}) => {
         setChartData({
             ...chartData,
             series: [{
-                name: "Flights",
+                name: yaxis,
                 data: values
             }],
             xAxis: {

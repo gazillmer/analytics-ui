@@ -2,9 +2,12 @@ import { APIRequest } from "./axios";
 
 export class Requests {
     async getModalData() {
-        const response = await APIRequest.get('flights/info');
-        console.log(response)
-        return response.data;
+        try {
+            const response = await APIRequest.get('flights/info');
+            return response.data;
+        } catch {
+            alert('Error while fetching indexes from API.')
+        }
     }
 
     async getGraphDataInfo(filters) {
