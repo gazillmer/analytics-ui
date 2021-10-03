@@ -3,7 +3,7 @@ import Loader from 'react-loader-spinner';
 import styled from 'styled-components';
 
 import { Requests } from "../../services/axios/requests";
-import { Twitter, Flight, Close } from '@material-ui/icons';
+import { Twitter, Flight, Close, Delete } from '@material-ui/icons';
 
 function ChartEditor({
     onClose = () => { },
@@ -57,11 +57,19 @@ function ChartEditor({
                             Source
                             {flights ? (
                                 <>
-                                    <TwitterButtonInactive onClick={() => setFlights(false)}>
+                                    <TwitterButtonInactive
+                                        onClick={() => setFlights(false)}
+                                        value={formData?.source}
+                                        onChange={e => handleFieldChange(e, 'twitter')}
+                                    >
                                         <Twitter style={{ color: "#1DA1F2" }} />
                                         <p>Twitter</p>
                                     </TwitterButtonInactive>
-                                    <FlightsButton onClick={() => setFlights(true)}>
+                                    <FlightsButton
+                                        onClick={() => setFlights(true)}
+                                        value={formData?.source}
+                                        onChange={e => handleFieldChange(e, 'flights')}
+                                    >
                                         <Flight style={{ color: "white" }} />
                                         <p>Flights</p>
                                     </FlightsButton>
@@ -69,11 +77,17 @@ function ChartEditor({
                                 </>
                             ) : (
                                 <>
-                                    <TwitterButton onClick={() => setFlights(false)}>
+                                    <TwitterButton
+                                        onClick={() => setFlights(false)}
+                                        value={formData?.source}
+                                        onChange={e => handleFieldChange(e, 'twitter')}>
                                         <Twitter style={{ color: "white" }} />
                                         <p>Twitter</p>
                                     </TwitterButton>
-                                    <FlightsButtonInactive onClick={() => setFlights(true)}>
+                                    <FlightsButtonInactive
+                                        onClick={() => setFlights(true)}
+                                        value={formData?.source}
+                                        onChange={e => handleFieldChange(e, 'flights')}>
                                         <Flight style={{ color: "#026b02" }} />
                                         <p>Flights</p>
                                     </FlightsButtonInactive>
@@ -168,9 +182,8 @@ function ChartEditor({
                                                     key={filter}
                                                     value={filter}
                                                     onClick={() =>
-                                                        setFilters((existing) => ({
-                                                            ...existing,
-                                                            [filter]: [],
+                                                        setFilters(existing => ({
+                                                            ...existing, [filter]: ""
                                                         }))
 
                                                     }>
@@ -179,10 +192,39 @@ function ChartEditor({
                                             )
                                         })
                                         }
+                                        {console.log(filters)}
+
                                     </Dropdown>
+
+                                    {Object.entries(filters).map(([filter, selected]) => {
+                                        return (
+                                            <>
+                                                <FilterDsc>
+                                                    {filter}
+                                                </FilterDsc>
+                                                <Filters>
+                                                    <FilterInput
+                                                        type="text"
+                                                        name="values"
+                                                        placeholder="Select value"
+                                                        value={selected}
+                                                        onChange={(value) =>
+                                                            setFilters((existing) => ({ ...existing, [filter]: value }))}
+                                                    />
+                                                    <FilterDelete
+                                                        onClick={() => setFilters(existing => {
+                                                            const { [filter]: _, ...rest } = existing;
+                                                            return rest;
+                                                        })}
+                                                    >
+                                                        <Delete />
+                                                    </FilterDelete>
+                                                </Filters>
+                                            </>
+                                        )
+                                    })}
                                 </label>
                             </FlightsSection>
-
                         ) : (
                             // Twitter section
                             <TwitterSection>
@@ -229,34 +271,32 @@ function ChartEditor({
                                         <option value="heatmap">Heatmap</option>
                                     </Select>
                                 </label>
-                                <Filters>
-                                    <label style={{ display: "inline" }}>{/* Filters */}
-                                        Filters
-                                        <Dropdown
-                                            placeholder="Select an option"
-                                            onChange={e => handleFieldChange(e, 'filters')}
-                                            value={formData?.filters}
-                                        >
-                                            <option value={""}>Not available yet</option>
-                                            {Object.keys(chartData['filters']).map((filter) => {
-                                                return (
-                                                    <option
-                                                        key={filter}
-                                                        value={filter}
-                                                        onClick={() =>
-                                                            setFilters((existing) => ({
-                                                                ...existing,
-                                                                [filter]: [],
-                                                            }))
-                                                        }>
-                                                        {filter}
-                                                    </option>
-                                                )
-                                            })
-                                            }
-                                        </Dropdown>
-                                    </label>
-                                </Filters>
+                                <label style={{ display: "inline" }}>{/* Filters */}
+                                    Filters
+                                    <Dropdown
+                                        placeholder="Select an option"
+                                        onChange={e => handleFieldChange(e, 'filters')}
+                                        value={formData?.filters}
+                                    >
+                                        <option value={""}>Not available yet</option>
+                                        {Object.keys(chartData['filters']).map((filter) => {
+                                            return (
+                                                <option
+                                                    key={filter}
+                                                    value={filter}
+                                                    onClick={() =>
+                                                        setFilters((existing) => ({
+                                                            ...existing,
+                                                            [filter]: [],
+                                                        }))
+                                                    }>
+                                                    {filter}
+                                                </option>
+                                            )
+                                        })
+                                        }
+                                    </Dropdown>
+                                </label>
                             </TwitterSection>
                         )
                         }
@@ -269,7 +309,6 @@ function ChartEditor({
 }
 
 export default ChartEditor
-
 
 // Styled Components -------------------------------------
 
@@ -366,6 +405,7 @@ const Input = styled.input`
     outline: none;
     background-color: white;
     width: 100%;
+    height: 40px;
     padding: 12px 20px;
     margin: 5px 0 15px 0;
     display: inline-block;
@@ -374,8 +414,7 @@ const Input = styled.input`
     box-sizing: border-box;
 `
 const Dropdown = styled(Select)`
-    width: 75%;
-    margin: 5px 0 15px 15px;
+    width: 100%;
     padding: 12px 10px;
 `
 const TwitterButton = styled.div`
@@ -383,6 +422,7 @@ const TwitterButton = styled.div`
     height: 30px;
     width: 100px;
     border-radius: 10px;
+    border: 1px solid #1DA1F2;
     display: flex;
     padding: 5px;
     align-items: center;
@@ -402,6 +442,7 @@ const FlightsButton = styled.div`
     height: 30px;
     width: 100px;
     border-radius: 10px;
+    border: 1px solid #026b02;
     display: flex;
     padding: 5px;
     align-items: center;
@@ -420,6 +461,7 @@ const FlightsButton = styled.div`
 const TwitterButtonInactive = styled(TwitterButton)`
     background-color: #fafafa;
     color: #1DA1F2;
+    border: 1px solid #1DA1F2;
 
     &:hover {
         background-color: #188fda;
@@ -429,17 +471,44 @@ const TwitterButtonInactive = styled(TwitterButton)`
 const FlightsButtonInactive = styled(FlightsButton)`
     background-color: #fafafa;
     color: #026b02;
+    border: 1px solid #026b02;
 
     &:hover {
         background-color: #026b02;
         transition: 0.1s;
     }
 `
+const FilterDsc = styled.div`
+    font-size: 14px;
+    margin: 10px 0 10px 0;
+`
 const Filters = styled.div`
-    background-color: #e6e6e6;
-    border-radius: 10px;
-    border: 1px solid #999999;
-    padding: 5px;
-    align-items: center;
-    line-height: 30px;
+    display: flex;
+    flex-flow: row wrap;
+`
+const FilterInput = styled.input`
+    outline: none;
+    height: 40px;
+    background-color: white;
+    border-radius: 10px 0 0 10px;
+    width: calc(100% - 40px);
+    padding: 12px 20px;
+    display: inline;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+`
+const FilterDelete = styled.button`
+    color: white;
+    background-color: rgb(47, 50, 78);
+    border: none;
+    border-radius: 0 10px 10px 0;
+    height: 40px;
+    width: 40px;
+    cursor: pointer;
+
+    &:hover {
+        transition: 0.1s;
+        background-color: #5a6099;
+    }
+
 `
