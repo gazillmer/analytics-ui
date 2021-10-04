@@ -1,7 +1,6 @@
 import React, { useState } from 'react'
 import { useEffect } from 'react';
 import styled from 'styled-components'
-//import getDefaultCharts  from "../../services/data/defaultCharts";
 
 import ReactTooltip from "react-tooltip";
 import ChartEditor from '../charts/ChartEditor';
@@ -52,13 +51,45 @@ function Flights() {
         handleData();
     }
 
+    const deleteChart = (index) => {
+        alert('hello: ', index)
+        /* setCharts({
+            [current, ...rest] = charts;
+            return rest */
+    }
+
+    /*         onClick={() => setFilters(current => {
+                console.log("delete: ", filter);
+                const { [filter]: x, ...rest } = current;
+                return rest;  */
+
+
+    /* onDelete={(index) => setCharts((existing, index) => {
+        const [index, ...rest] = existing;
+        return rest;
+    })}*/
+
+
     return (
         <FlightsContainer>
             {
-                charts.map(chart => (
-                    <ChartManager {...chart} />
+                charts.map((chart, index) => (
+                    <ChartManager {...chart} onDelete={() => {
+                        const rest = [...charts]
+                        rest.splice(index, 1)
+                        setCharts(rest)
+                    }}
+
+
+                    // Do not delete, it works for alert the clicked index
+                    //<ChartManager {...chart} onDelete={() => alert(index)}
+
+                    // Do not delete, it works for console logging the clicked index
+                    //<ChartManager {...chart} onDelete={() => console.log("hello mr. ", index)}
+                    />
                 ))
             }
+
             <Button
                 onClick={() => setShowEditor(true)}
                 data-tip

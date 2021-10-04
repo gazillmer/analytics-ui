@@ -23,15 +23,14 @@ function ChartEditor({
             setChartData(data);
             setLoading(false);
         }
-
         getData();
     }, []);
 
-    const handleFieldChange = (data, fieldName) => {
+    const handleFieldChange = (e, fieldName) => {
         setFormData({
             ...formData,
-            [fieldName]: data.target.value
-        });
+            [fieldName]: e.target.value
+        })
     }
 
     const handleSaveForm = () => {
@@ -60,7 +59,6 @@ function ChartEditor({
                                     <TwitterButtonInactive
                                         onClick={() => setFlights(false)}
                                         value={formData?.source}
-                                        onChange={e => handleFieldChange(e, 'twitter')}
                                     >
                                         <Twitter style={{ color: "#1DA1F2" }} />
                                         <p>Twitter</p>
@@ -73,7 +71,6 @@ function ChartEditor({
                                         <Flight style={{ color: "white" }} />
                                         <p>Flights</p>
                                     </FlightsButton>
-
                                 </>
                             ) : (
                                 <>
@@ -169,34 +166,31 @@ function ChartEditor({
                                     </label>
                                 )}
                                 <label>{/* Filters */}
-                                    Filters
+                                    Filters {/* Seleção do filtro: OK */}
                                     <Dropdown
                                         placeholder="Select an option"
-                                        onChange={e => handleFieldChange(e, 'filters')}
-                                        value={formData?.filters}
                                     >
                                         <option value={""}>Not available yet</option>
                                         {Object.keys(chartData['filters']).map((filter) => {
                                             return (
                                                 <option
                                                     key={filter}
-                                                    value={filter}
+                                                    value={formData?.filters}
                                                     onClick={() =>
                                                         setFilters(existing => ({
                                                             ...existing, [filter]: ""
                                                         }))
-
-                                                    }>
+                                                    }
+                                                >
                                                     {filter}
                                                 </option>
                                             )
                                         })
                                         }
                                         {console.log(filters)}
-
                                     </Dropdown>
-
-                                    {Object.entries(filters).map(([filter, selected]) => {
+                                    {Object.entries(filters).map((filter) => {
+                                        console.log(filters);
                                         return (
                                             <>
                                                 <FilterDsc>
@@ -205,15 +199,20 @@ function ChartEditor({
                                                 <Filters>
                                                     <FilterInput
                                                         type="text"
-                                                        name="values"
+                                                        name="filterValue"
                                                         placeholder="Select value"
-                                                        value={selected}
-                                                        onChange={(value) =>
-                                                            setFilters((existing) => ({ ...existing, [filter]: value }))}
+                                                        value={filters?.filter}
+                                                        onChange={(e) => {
+                                                            setFilters(current => ({
+                                                                ...current,
+                                                                [filter]: e.target.value
+                                                            }))
+                                                        }}
                                                     />
                                                     <FilterDelete
-                                                        onClick={() => setFilters(existing => {
-                                                            const { [filter]: _, ...rest } = existing;
+                                                        onClick={() => setFilters(current => {
+                                                            console.log("delete: ", filter);
+                                                            const { [filter]: x, ...rest } = current;
                                                             return rest;
                                                         })}
                                                     >
