@@ -85,7 +85,7 @@ function ChartEditor({
                                         onClick={() => setFlights(true)}
                                         value={formData?.source}
                                         onChange={e => handleFieldChange(e, 'flights')}>
-                                        <Flight style={{ color: "#026b02" }} />
+                                        <Flight style={{ color: "#be03b5" }} />
                                         <p>Flights</p>
                                     </FlightsButtonInactive>
                                 </>)
@@ -166,31 +166,27 @@ function ChartEditor({
                                     </label>
                                 )}
                                 <label>{/* Filters */}
-                                    Filters {/* Seleção do filtro: OK */}
                                     <Dropdown
                                         placeholder="Select an option"
                                     >
-                                        <option value={""}>Not available yet</option>
+                                        <option selected value="">Select filters</option>
                                         {Object.keys(chartData['filters']).map((filter) => {
                                             return (
                                                 <option
                                                     key={filter}
                                                     value={formData?.filters}
-                                                    onClick={() =>
-                                                        setFilters(existing => ({
-                                                            ...existing, [filter]: ""
-                                                        }))
-                                                    }
+                                                    onClick={() => setFilters({
+                                                        ...filters, [filter]: []
+
+                                                    })}
                                                 >
                                                     {filter}
                                                 </option>
                                             )
                                         })
                                         }
-                                        {console.log(filters)}
                                     </Dropdown>
-                                    {Object.entries(filters).map((filter) => {
-                                        console.log(filters);
+                                    {Object.entries(filters).map(([filter, sel]) => {
                                         return (
                                             <>
                                                 <FilterDsc>
@@ -201,18 +197,14 @@ function ChartEditor({
                                                         type="text"
                                                         name="filterValue"
                                                         placeholder="Select value"
-                                                        value={filters?.filter}
+                                                        //value={filters?.filter}
                                                         onChange={(e) => {
-                                                            setFilters(current => ({
-                                                                ...current,
-                                                                [filter]: e.target.value
-                                                            }))
+                                                            setFilters(current => ({ ...current, [filter]: e.target.value }))
                                                         }}
                                                     />
                                                     <FilterDelete
                                                         onClick={() => setFilters(current => {
-                                                            console.log("delete: ", filter);
-                                                            const { [filter]: x, ...rest } = current;
+                                                            const { [filter]: _, ...rest } = current;
                                                             return rest;
                                                         })}
                                                     >
@@ -299,7 +291,17 @@ function ChartEditor({
                             </TwitterSection>
                         )
                         }
-                        <SubmitButton onClick={handleSaveForm}>Create chart</SubmitButton>
+
+                        <SubmitButton
+                            onClick={
+                                () => {
+                                    setFormData({
+                                        ...formData,
+                                        'filters': filters
+                                    });
+                                    handleSaveForm()
+                                }
+                            }> Create chart </SubmitButton>
                     </ModalContent>
                 </>)
             }
@@ -314,6 +316,7 @@ export default ChartEditor
 const Modal = styled.div`
     z-index: 100;
     height: 100vh;
+    overflow-y: auto;
     width:20%;
     position:fixed;
     bottom:0;
@@ -329,7 +332,7 @@ const Modal = styled.div`
     transition: transform 10s;
 `
 const ModalContent = styled.div`
-    overflow: auto;
+
 `
 const ChartSource = styled.div`
     display: flex;
@@ -374,7 +377,8 @@ const CloseButton = styled.button`
     }
 `
 const SubmitButton = styled.button`
-    margin: 20px 0;
+    margin-top: 20px;
+    margin-bottom: 30px;
     width: 100%;
     padding: 12px 20px;
     font-size: 16px;
@@ -415,6 +419,9 @@ const Input = styled.input`
 const Dropdown = styled(Select)`
     width: 100%;
     padding: 12px 10px;
+    background-color: #5a6099;
+    color: white;
+    border: none;
 `
 const TwitterButton = styled.div`
     background-color: #1DA1F2;
@@ -437,11 +444,11 @@ const TwitterButton = styled.div`
     }
 `
 const FlightsButton = styled.div`
-    background-color: green;
+    background-color: rgb(190, 3, 181);
     height: 30px;
     width: 100px;
     border-radius: 10px;
-    border: 1px solid #026b02;
+    border: 1px solid rgb(190, 3, 181);
     display: flex;
     padding: 5px;
     align-items: center;
@@ -453,7 +460,7 @@ const FlightsButton = styled.div`
     font-size: 14px;
 
     &:hover {
-        background-color: #026b02;
+        background-color: rgb(190, 3, 181);
         transition: 0.1s;
     }
 `
@@ -469,11 +476,11 @@ const TwitterButtonInactive = styled(TwitterButton)`
 `
 const FlightsButtonInactive = styled(FlightsButton)`
     background-color: #fafafa;
-    color: #026b02;
-    border: 1px solid #026b02;
+    color: rgb(190, 3, 181);
+    border: 1px solid rgb(190, 3, 181);
 
     &:hover {
-        background-color: #026b02;
+        background-color: rgb(190, 3, 181);
         transition: 0.1s;
     }
 `
@@ -510,4 +517,11 @@ const FilterDelete = styled.button`
         background-color: #5a6099;
     }
 
+`
+const FilterSelection = styled.div`
+    background-color: green;
+    border-radius: 10px;
+    display: flexbox;
+    margin: 0 15px 0 0;
+    height: 40px;
 `

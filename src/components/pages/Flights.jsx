@@ -51,25 +51,6 @@ function Flights() {
         handleData();
     }
 
-    const deleteChart = (index) => {
-        alert('hello: ', index)
-        /* setCharts({
-            [current, ...rest] = charts;
-            return rest */
-    }
-
-    /*         onClick={() => setFilters(current => {
-                console.log("delete: ", filter);
-                const { [filter]: x, ...rest } = current;
-                return rest;  */
-
-
-    /* onDelete={(index) => setCharts((existing, index) => {
-        const [index, ...rest] = existing;
-        return rest;
-    })}*/
-
-
     return (
         <FlightsContainer>
             {
@@ -79,13 +60,6 @@ function Flights() {
                         rest.splice(index, 1)
                         setCharts(rest)
                     }}
-
-
-                    // Do not delete, it works for alert the clicked index
-                    //<ChartManager {...chart} onDelete={() => alert(index)}
-
-                    // Do not delete, it works for console logging the clicked index
-                    //<ChartManager {...chart} onDelete={() => console.log("hello mr. ", index)}
                     />
                 ))
             }
