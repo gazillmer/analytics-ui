@@ -46,7 +46,6 @@ const SidebarListItem = styled.div`
     }
     
 `
-
 function Sidebar() {
     return (
         <SidebarMenu>

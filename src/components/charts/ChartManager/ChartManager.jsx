@@ -1,10 +1,49 @@
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTimes } from "@fortawesome/free-solid-svg-icons";
+import { Close } from '@material-ui/icons';
 import React from "react";
 import ReactTooltip from "react-tooltip";
 import LineChart from "../LineChart";
 import BarChart from "../BarChart";
 import styled from "styled-components";
+
+const ChartManager = ({ name, indexes, values, type, yaxis, onDelete }) => {
+    return (
+        <ChartContainer>
+            <Title>
+                {name}
+                <CloseButton
+                    data-tip
+                    data-for="ttp"
+                    onClick={onDelete}
+                >
+                    <Close />
+                </CloseButton>
+                <ReactTooltip
+                    backgroundColor="#5a6099"
+                    id="ttp"
+                    data-offset="{'top': 10, 'left': 10}"
+                >
+                    Delete chart
+                </ReactTooltip>
+            </Title>
+
+            {(() => {
+                switch (type) {
+                    case 'line':
+                        return (<LineChart values={values} indexes={indexes} yaxis={yaxis} />)
+                }
+                switch (type) {
+                    case 'bar':
+                        return (<BarChart values={values} indexes={indexes} yaxis={yaxis} />)
+                }
+            })()
+            }
+        </ChartContainer>
+    )
+}
+
+export default ChartManager
+
+// Styled Components
 
 const ChartContainer = styled.div`
     white-space: nowrap;
@@ -38,43 +77,3 @@ const CloseButton = styled.button`
         background-color: white
     }
 `
-
-const ChartManager = ({ name, indexes, values, type, yaxis, onDelete}) => {
-    return (
-        <ChartContainer>
-            <Title>
-                {name}
-                <CloseButton
-                    data-tip
-                    data-for="ttp"
-                    onClick={onDelete}
-                >
-                    <FontAwesomeIcon
-                        icon={faTimes}
-                    />
-                </CloseButton>
-                <ReactTooltip
-                    backgroundColor="#5a6099"
-                    id="ttp"
-                    data-offset="{'top': 10, 'left': 10}"
-                >
-                    Delete chart
-                </ReactTooltip>
-            </Title>
-
-            {(() => {
-                switch (type) {
-                    case 'line':
-                        return (<LineChart values={values} indexes={indexes} yaxis={yaxis} />)
-                }
-                switch (type) {
-                    case 'bar':
-                        return (<BarChart values={values} indexes={indexes} yaxis={yaxis} />)
-                }
-            })()
-            }
-        </ChartContainer>
-    )
-}
-
-export default ChartManager
