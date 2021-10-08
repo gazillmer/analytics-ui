@@ -1,6 +1,7 @@
 import { APIRequest } from "./axios";
 
 export class Requests {
+    
     async getModalData(source) {
         try {
             const response = await APIRequest.get(`${source}/info`);
@@ -12,8 +13,8 @@ export class Requests {
 
     async getGraphDataInfo(filters) {
 
-      let source = filters.source; 
-      let endpoint = '';
+        let source = filters.source;
+        let endpoint = '';
 
         switch (filters.chartType) {
             case 'line':
@@ -34,22 +35,12 @@ export class Requests {
 
         const response = await APIRequest.post(`${source}/${endpoint}`, filters);
 
-        if (endpoint === 'heatmap') {
-            return {
-                name: filters?.title || 'Untitled Chart',
-                indexes: response.data.output.indexes,
-                values: response.data.output.values,
-                type: filters?.chartType
-            }
-        } else {
-            return {
-                name: filters?.title || 'Untitled Chart',
-                yaxis: filters?.index,
-                values: response.data.output.values,
-                indexes: response.data.output.indexes,
-                type: filters?.chartType
-            };
+        return {
+            name: filters?.title || 'Untitled Chart',
+            yaxis: filters?.index,
+            values: response.data.output.values,
+            indexes: response.data.output.indexes,
+            type: filters?.chartType
         }
-
     }
 }

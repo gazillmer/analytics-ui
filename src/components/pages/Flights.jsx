@@ -1,10 +1,8 @@
-import React, { useState } from 'react'
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-
 import ReactTooltip from "react-tooltip";
+
 import ChartEditor from '../charts/ChartEditor';
-//import { initialCharts } from "../../services/data/initialCharts";
 import ChartManager from "../charts/ChartManager/ChartManager";
 import { Requests } from "../../services/axios/requests";
 
@@ -42,7 +40,6 @@ function Flights() {
         localStorage.setItem('saved-charts', JSON.stringify(charts));
     }, [charts]);
 
-
     const handleNewChart = async (data) => {
         const handleData = async () => {
             const apiReturn = await new Requests().getGraphDataInfo(data);
@@ -55,11 +52,13 @@ function Flights() {
         <FlightsContainer>
             {
                 charts.map((chart, index) => (
-                    <ChartManager {...chart} onDelete={() => {
-                        const rest = [...charts]
-                        rest.splice(index, 1)
-                        setCharts(rest)
-                    }}
+                    <ChartManager
+                        {...chart}
+                        onDelete={() => {
+                            const rest = [...charts]
+                            rest.splice(index, 1)
+                            setCharts(rest)
+                        }}
                     />
                 ))
             }

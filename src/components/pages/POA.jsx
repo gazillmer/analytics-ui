@@ -1,16 +1,13 @@
-import React, { useState } from 'react'
-import { useEffect } from 'react';
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-//import getDefaultCharts  from "../../services/data/defaultCharts";
-
 import ReactTooltip from "react-tooltip";
+
 import ChartEditor from '../charts/ChartEditor';
-//import { initialCharts } from "../../services/data/initialCharts";
 import ChartManager from "../charts/ChartManager/ChartManager";
 import { Requests } from "../../services/axios/requests";
 
 const getDefaultCharts = () => {
-    const savedCharts = localStorage.getItem("tweet-charts");
+    const savedCharts = localStorage.getItem("saved-charts");
 
     if (savedCharts) {
         try {
@@ -34,7 +31,7 @@ const getDefaultCharts = () => {
     ]
 }
 
-function Tweets() {
+function Flights() {
 
     const [showEditor, setShowEditor] = useState(false);
     const [charts, setCharts] = useState(getDefaultCharts);
@@ -42,7 +39,6 @@ function Tweets() {
     useEffect(() => {
         localStorage.setItem('saved-charts', JSON.stringify(charts));
     }, [charts]);
-
 
     const handleNewChart = async (data) => {
         const handleData = async () => {
@@ -55,15 +51,24 @@ function Tweets() {
     return (
         <FlightsContainer>
             {
-                charts.map(chart => (
-                    <ChartManager {...chart} />
+                charts.map((chart, index) => (
+                    <ChartManager
+                        {...chart}
+                        onDelete={() => {
+                            const rest = [...charts]
+                            rest.splice(index, 1)
+                            setCharts(rest)
+                        }}
+                    />
                 ))
             }
+
             <Button
                 onClick={() => setShowEditor(true)}
                 data-tip
                 data-for="create"
-            > + </Button>
+            >
+                + </Button>
             <ReactTooltip
                 backgroundColor="#5a6099"
                 id="create"
@@ -83,7 +88,7 @@ function Tweets() {
     )
 }
 
-export default Tweets
+export default Flights
 
 const Button = styled.button`
     font-size: 30px;

@@ -5,8 +5,8 @@ import Sidebar from './components/Sidebar';
 import About from './components/pages/About';
 import TravelWebsites from './components/pages/TravelWebsites';
 import Flights from './components/pages/Flights';
+import POA from './components/pages/POA';
 import styled from 'styled-components';
-import Tweets from './components/pages/Tweets';
 
 // Style App structure
 const Container = styled.div`
@@ -20,9 +20,10 @@ function App() {
       <Router>
         <Sidebar />
         <Switch>
-          <Route path = '/tweets' exact component = {Tweets} />
+          <Route path = '/' exact component = {About} />
           <Route path = '/about' component = {About} />
           <Route path = '/flights' component = {Flights} />
+          <Route path = '/POA' component = {POA} />
           <Route path = '/websites' component = {TravelWebsites} />
         </Switch>
       </Router>

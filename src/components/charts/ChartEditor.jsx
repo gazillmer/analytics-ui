@@ -3,7 +3,7 @@ import Loader from 'react-loader-spinner';
 import styled from 'styled-components';
 
 import { Requests } from "../../services/axios/requests";
-import { Twitter, Flight, Close, Delete, ErrorOutline} from '@material-ui/icons';
+import { Twitter, Flight, Close, Delete, ErrorOutline } from '@material-ui/icons';
 
 function ChartEditor({
     onClose = () => { },
@@ -16,9 +16,9 @@ function ChartEditor({
     const [twitterData, setTwitterData] = useState(null);
     const [filters, setFilters] = useState({});
     const [source, setSource] = useState('flights');
+    const [retrieveData, setRetrieveData] = useState({})
 
     useEffect(() => {
-        
         const getData = async () => {
             setLoading(true);
 
@@ -31,12 +31,19 @@ function ChartEditor({
             setLoading(false);
         }
         getData();
-        
+
         setFormData({
             ...formData,
             'source': 'flights'
         })
     }, []);
+
+    useEffect(() => {
+        setRetrieveData({
+            ...formData,
+            'filters': filters
+        })
+    }, [filters])
 
     const handleFieldChange = (e, fieldName) => {
         setFormData({
@@ -45,7 +52,7 @@ function ChartEditor({
         })
     }
     const handleSaveForm = () => {
-        onAddChart(formData);
+        onAddChart(retrieveData);
     }
 
     return (
@@ -168,14 +175,20 @@ function ChartEditor({
                                 )}
                                 <Dropdown>
                                     <option value="">Select filters</option>
-                                    {Object.keys(chartData['filters']).map((filter) => {
+                                    {Object.keys(chartData?.filters).map((filter) => {
                                         return (
                                             <option
                                                 key={filter}
-                                                value={formData?.filters}
                                                 onClick={() => setFilters({
                                                     ...filters, [filter]: []
                                                 })}
+                                            /* onClick={() => {
+                                                setFormData(current => ({
+                                                    ...current,
+                                                    filters: { [filter]: "" }
+                                                }));
+                                                console.log(formData)
+                                            }} */
                                             >
                                                 {filter}
                                             </option>
@@ -194,6 +207,9 @@ function ChartEditor({
                                                     type="text"
                                                     name="filterValue"
                                                     placeholder="Select value"
+                                                    /*                                                     onChange={(e) => {
+                                                                                                            setFormData(current => ({ ...current, filters: { [filter]: e.target.value } }))
+                                                                                                        }} */
                                                     onChange={(e) => {
                                                         setFilters(current => ({ ...current, [filter]: e.target.value }))
                                                     }}
@@ -203,6 +219,7 @@ function ChartEditor({
                                                         const { [filter]: _, ...rest } = current;
                                                         return rest;
                                                     })}
+
                                                 >
                                                     <Delete />
                                                 </FilterDeleteButton>
@@ -255,15 +272,18 @@ function ChartEditor({
                                     <option value="bar">Bar</option>
                                 </Select>
                                 {formData.chartType === 'bar' && (
-                                    <Input
-                                        type="number"
-                                        min="5"
-                                        max="15"
-                                        name="values"
-                                        placeholder="Add chart title"
-                                        value={formData?.nValues}
-                                        onChange={e => handleFieldChange(e, 'nValues')}
-                                    />
+                                    <>
+                                        <Input
+                                            type="number"
+                                            min="5"
+                                            max="15"
+                                            name="values"
+                                            placeholder="Select number of values"
+                                            value={formData?.nValues}
+                                            onChange={e => handleFieldChange(e, 'nValues')}
+                                        />
+
+                                    </>
                                 )}
                                 <Dropdown>
                                     <option value="">Select filters</option>
@@ -271,7 +291,6 @@ function ChartEditor({
                                         return (
                                             <option
                                                 key={filter}
-                                                value={formData?.filters}
                                                 onClick={() => setFilters({
                                                     ...filters, [filter]: []
                                                 })}
@@ -308,14 +327,30 @@ function ChartEditor({
                                         </>
                                     )
                                 })}
+                                {formData.chartType === 'bar' && (
+                                    <>
+                                        Select value
+                                        <Dropdown>
+                                            <option value="">Select value you want to check</option>
+                                            {Object.keys(twitterData['filters']).map((filter) => {
+                                                return (
+                                                    <option
+                                                        key={filter}
+                                                        onClick={() => setRetrieveData({
+                                                            ...retrieveData,
+                                                            'calcBy': filter
+                                                        })}
+                                                    >
+                                                        {filter}
+                                                    </option>
+                                                )
+                                            })}
+                                        </Dropdown>
+                                    </>
+                                )}
                             </TwitterSection>
                         )
                         }
-                        {/*                         {                                () => {
-                                    setFormData({
-                                        ...formData,
-                                        'filters': filters
-                                    });} */}
                         <SubmitButton onClick={handleSaveForm}>
                             Create chart
                         </SubmitButton>

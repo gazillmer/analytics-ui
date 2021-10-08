@@ -42,9 +42,24 @@ const SidebarListItem = styled.div`
 
     &:hover {
         margin-left: 5px;
-        transition: 5px;
-    }
-    
+        transition: 0.1s;
+    } 
+`
+const SidebarListItemPOA = styled.div`
+    padding: 5px;
+    font-size: 14px;
+    color: red;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    height: 35px;
+    margin-bottom: 5px;
+    padding-left: 50px;
+
+    &:hover {
+        margin-left: 15px;
+        transition: 0.1s
+    } 
 `
 function Sidebar() {
     return (
@@ -54,27 +69,26 @@ function Sidebar() {
                 <SidebarListItem>
                     <Link to="/flights" style={{ textDecoration: 'none', color: "white" }}>
                         <FlightTakeoff className="sidebarIcon" />
-                        flight information
+                        dashboard
                     </Link>
                 </SidebarListItem>
-                <SidebarListItem>
-                    <Link to="/tweets" style={{ textDecoration: 'none', color: "white" }}>
-                        <Twitter className="sidebarIcon" />
-                        social-media
+                <SidebarListItemPOA>
+                    <Link to="/POA" style={{ textDecoration: 'none', color: "white" }}>
+                        Porto Alegre
                     </Link>
-                    </SidebarListItem>
+                </SidebarListItemPOA>
                 <SidebarListItem>
                     <Link to="/websites" style={{ textDecoration: 'none', color: "white" }}>
                         <Work className="sidebarIcon" />
                         travel-related websites
                     </Link>
-                    </SidebarListItem>
+                </SidebarListItem>
                 <SidebarListItem>
                     <Link to="/about" style={{ textDecoration: 'none', color: "white" }}>
                         <Info className="sidebarIcon" />
                         about
                     </Link>
-                    </SidebarListItem>
+                </SidebarListItem>
             </SidebarList>
         </SidebarMenu>
     )
