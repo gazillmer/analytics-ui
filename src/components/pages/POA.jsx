@@ -7,7 +7,7 @@ import ChartManager from "../charts/ChartManager/ChartManager";
 import { Requests } from "../../services/axios/requests";
 
 const getDefaultCharts = () => {
-    const savedCharts = localStorage.getItem("saved-charts");
+    const savedCharts = localStorage.getItem("saved-charts-poa");
 
     if (savedCharts) {
         try {
@@ -37,7 +37,7 @@ function Flights() {
     const [charts, setCharts] = useState(getDefaultCharts);
 
     useEffect(() => {
-        localStorage.setItem('saved-charts', JSON.stringify(charts));
+        localStorage.setItem('saved-charts-poa', JSON.stringify(charts));
     }, [charts]);
 
     const handleNewChart = async (data) => {
@@ -63,7 +63,7 @@ function Flights() {
                 ))
             }
 
-            <Button
+           <Button
                 onClick={() => setShowEditor(true)}
                 data-tip
                 data-for="create"

@@ -1,29 +1,59 @@
-import { Close } from '@material-ui/icons';
+import { Close, ArrowDownward, Twitter, Flight } from '@material-ui/icons';
 import React from "react";
+import { CSVLink } from 'react-csv';
 import ReactTooltip from "react-tooltip";
 import LineChart from "../LineChart";
 import BarChart from "../BarChart";
 import styled from "styled-components";
 
-const ChartManager = ({ name, indexes, values, type, yaxis, onDelete }) => {
+const ChartManager = ({ name, indexes, values, type, yaxis, filters, onDelete, onDownload }) => {
+    
     return (
         <ChartContainer>
             <Title>
+                <Source>
+                    {filters.source == 'flights'
+                        ? (<Flight style={{ color: "#be03b5" }} />)
+                        : (<Twitter style={{ color: "#1DA1F2" }} />)
+                    }
+                </Source>
                 {name}
-                <CloseButton
-                    data-tip
-                    data-for="ttp"
-                    onClick={onDelete}
-                >
-                    <Close />
-                </CloseButton>
-                <ReactTooltip
-                    backgroundColor="#5a6099"
-                    id="ttp"
-                    data-offset="{'top': 10, 'left': 10}"
-                >
-                    Delete chart
-                </ReactTooltip>
+
+                <Options>
+                    {/* Download Button */}
+                    {filters.source == 'twitter' &&
+                        <>
+                            <DownloadButton
+                                data-tip
+                                data-for="data"
+                                onClick={onDownload}>
+                                <ArrowDownward />
+                            </DownloadButton>
+                            <ReactTooltip
+                                backgroundColor="#5a6099"
+                                id="data"
+                                data-offset="{'top': 10, 'left': 10}"
+                            >
+                                download chart data
+                            </ReactTooltip>
+                        </>
+                    }
+                    {/* Close Button */}
+                    <CloseButton
+                        data-tip
+                        data-for="ttp"
+                        onClick={onDelete}
+                    >
+                        <Close />
+                    </CloseButton>
+                    <ReactTooltip
+                        backgroundColor="#5a6099"
+                        id="ttp"
+                        data-offset="{'top': 10, 'left': 10}"
+                    >
+                        delete chart
+                    </ReactTooltip>
+                </Options>
             </Title>
 
             {(() => {
@@ -67,13 +97,36 @@ const CloseButton = styled.button`
     border: none;
     background-color: white;
     cursor: pointer;
-    position: absolute;
-    right: 0;
-    top: 0;
     color: gray;
 
     &:hover {
         color: black;
         background-color: white
     }
+`
+
+const DownloadButton = styled.button`
+    outline: none;
+    border: none;
+    background-color: white;
+    cursor: pointer;
+    color: gray;
+
+    &:hover {
+        color: black;
+        background-color: white
+    }
+`
+
+const Options = styled.div`
+    outline: none;
+    border: none;
+    background-color: white;
+    position: absolute;
+    right: 0;
+    top: 0;
+`
+
+const Source = styled.span`
+    margin-right: 10px;
 `

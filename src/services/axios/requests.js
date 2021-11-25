@@ -1,7 +1,7 @@
 import { APIRequest } from "./axios";
 
 export class Requests {
-    
+
     async getModalData(source) {
         try {
             const response = await APIRequest.get(`${source}/info`);
@@ -25,10 +25,6 @@ export class Requests {
                 endpoint = 'bar';
                 break;
 
-            case 'heatmap':
-                endpoint = 'heatmap';
-                break;
-
             default:
                 endpoint = 'line';
         }
@@ -40,7 +36,14 @@ export class Requests {
             yaxis: filters?.index,
             values: response.data.output.values,
             indexes: response.data.output.indexes,
-            type: filters?.chartType
+            type: filters?.chartType,
+            filters: filters
         }
     }
+    
+    async downloadChartData(filters) {
+        const response = await APIRequest.post(`twitter/download`, filters)
+        return response.data
+    }
+
 }

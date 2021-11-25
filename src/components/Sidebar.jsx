@@ -23,11 +23,11 @@ const SidebarTitle = styled.div`
 `
 const SidebarList = styled.div`
     list-style: none;
-    padding: 10px;
     background-color: rgb(47, 50, 78);
 `
 const SidebarListItem = styled.div`
     padding: 5px;
+    padding-left: 10px;
     cursor: pointer;
     display: flex;
     align-items: center;
@@ -54,7 +54,8 @@ const SidebarListItemPOA = styled.div`
     align-items: center;
     height: 35px;
     margin-bottom: 5px;
-    padding-left: 50px;
+    padding-left: 55px;
+    background-color: rgb(67, 70, 102);
 
     &:hover {
         margin-left: 15px;

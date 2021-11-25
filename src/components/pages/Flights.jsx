@@ -21,12 +21,18 @@ const getDefaultCharts = () => {
             values: [1, 2, 3, 4, 5, 6],
             indexes: ['01-2010', '02-2010', '03-2010', '04-2010', '05-2010', '06-2010'],
             type: 'line',
+            filters: {
+                source: 'other'
+            }
         },
         {
             name: 'Example Chart 2',
             values: [10, 20, 30, 25, 35, 20],
             indexes: ['01-2010', '02-2010', '03-2010', '04-2010', '05-2010', '06-2010'],
             type: 'line',
+            filters: {
+                source: 'other'
+            }
         },
     ]
 }
@@ -48,6 +54,13 @@ function Flights() {
         handleData();
     }
 
+    const download = async (filters) => {
+        const getData = async () => {
+            await new Requests().downloadChartData(filters);
+        }
+        getData();
+    }
+
     return (
         <FlightsContainer>
             {
@@ -59,6 +72,7 @@ function Flights() {
                             rest.splice(index, 1)
                             setCharts(rest)
                         }}
+                        onDownload={() => alert('ok')}
                     />
                 ))
             }

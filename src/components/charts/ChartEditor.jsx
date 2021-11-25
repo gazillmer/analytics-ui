@@ -121,6 +121,7 @@ function ChartEditor({
                                     value={formData?.title}
                                     onChange={e => handleFieldChange(e, 'title')}
                                 />
+                                {console.log(formData.title)}
                                 Calculate by
                                 <Select
                                     value={formData?.index}
@@ -182,13 +183,6 @@ function ChartEditor({
                                                 onClick={() => setFilters({
                                                     ...filters, [filter]: []
                                                 })}
-                                            /* onClick={() => {
-                                                setFormData(current => ({
-                                                    ...current,
-                                                    filters: { [filter]: "" }
-                                                }));
-                                                console.log(formData)
-                                            }} */
                                             >
                                                 {filter}
                                             </option>
@@ -233,6 +227,27 @@ function ChartEditor({
                                         Warning: bar chart only accepts one filter.
                                     </FilterWarningMsg>
                                 }
+                                {formData.chartType === 'bar' && (
+                                    <>
+                                        Select value
+                                        <Dropdown>
+                                            <option value="">Select value you want to check</option>
+                                            {Object.keys(chartData['filters']).map((filter) => {
+                                                return (
+                                                    <option
+                                                        key={filter}
+                                                        onClick={() => setRetrieveData({
+                                                            ...retrieveData,
+                                                            'calcBy': filter
+                                                        })}
+                                                    >
+                                                        {filter}
+                                                    </option>
+                                                )
+                                            })}
+                                        </Dropdown>
+                                    </>
+                                )}
                             </FlightsSection>
                         ) : (
                             // Twitter section
@@ -245,6 +260,7 @@ function ChartEditor({
                                     value={formData?.title}
                                     onChange={e => handleFieldChange(e, 'title')}
                                 />
+                                {console.log(formData.title)}
                                 Set starting date
                                 <Input
                                     type="date"
@@ -369,7 +385,7 @@ const Modal = styled.div`
     z-index: 100;
     height: 100vh;
     overflow-y: auto;
-    width:20%;
+    width: 250px;
     position:fixed;
     bottom:0;
     right:0;
@@ -415,7 +431,7 @@ const ModalHeader = styled.div`
 const ModalTitle = styled.div`
     margin-top: 20px;
     margin-bottom: 10px;
-    font-size: 28px;
+    font-size: 22px;
     font-weight: 700;
     background-color: inherit;
 `
