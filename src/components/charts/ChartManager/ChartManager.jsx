@@ -127,6 +127,7 @@ const Options = styled.div`
     top: 0;
 `
 
-const Source = styled.span`
+const Source = styled.div`
     margin-right: 10px;
+    display: inline;
 `

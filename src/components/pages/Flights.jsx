@@ -72,7 +72,7 @@ function Flights() {
                             rest.splice(index, 1)
                             setCharts(rest)
                         }}
-                        onDownload={() => alert('ok')}
+                        //onDownload={() => alert('ok')}
                     />
                 ))
             }

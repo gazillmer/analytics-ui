@@ -73,11 +73,11 @@ function Sidebar() {
                         dashboard
                     </Link>
                 </SidebarListItem>
-                <SidebarListItemPOA>
+                {/*<SidebarListItemPOA>
                     <Link to="/POA" style={{ textDecoration: 'none', color: "white" }}>
                         Porto Alegre
                     </Link>
-                </SidebarListItemPOA>
+                </SidebarListItemPOA>*/}
                 <SidebarListItem>
                     <Link to="/websites" style={{ textDecoration: 'none', color: "white" }}>
                         <Work className="sidebarIcon" />
