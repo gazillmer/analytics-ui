@@ -20,8 +20,7 @@ function TravelWebsites() {
     const chartSettings = {
         chart: {
             type: 'line',
-            reflow: true,
-            height: 600
+            height: 600,
         },
         title: {
             text: ''
@@ -87,15 +86,16 @@ function TravelWebsites() {
 
 const Container = styled.div`
     width: calc(100vw - 275px);
-    padding: 20px;
+    //padding: 20px;
     display: flex;
     justify-content: center;
     align-items: center;
 `
 const ChartCard = styled.div`
     background-color: white;
+    margin: 20px;
     width: 90%;
-    height: 90%;
+    height: 80%;
     padding: 30px;
     justify-content: center;
     border-radius: 10px;

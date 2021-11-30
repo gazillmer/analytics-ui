@@ -131,9 +131,9 @@ const Button = styled.button`
     }
 `
 const FlightsContainer = styled.div`
+    width: calc(100vw - 275px);
     padding: 20px;
     position: relative;
-    width: calc(100% - 275px);
     display: grid;
     grid-gap: 20px;
     grid-template-columns: repeat(auto-fill, minmax(450px, 1fr));

@@ -121,7 +121,6 @@ function ChartEditor({
                                     value={formData?.title}
                                     onChange={e => handleFieldChange(e, 'title')}
                                 />
-                                {console.log(formData.title)}
                                 Calculate by
                                 <Select
                                     value={formData?.index}
@@ -260,7 +259,6 @@ function ChartEditor({
                                     value={formData?.title}
                                     onChange={e => handleFieldChange(e, 'title')}
                                 />
-                                {console.log(formData.title)}
                                 Set starting date
                                 <Input
                                     type="date"

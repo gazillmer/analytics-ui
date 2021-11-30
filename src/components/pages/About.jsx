@@ -26,7 +26,7 @@ function About() {
 }
 
 const AboutContainer = styled.div`
-    width: calc(100% - 275px); 
+    width: calc(100vw - 275px); 
     background-color: #fafafa;   
 `
 const AboutCard = styled.div`
